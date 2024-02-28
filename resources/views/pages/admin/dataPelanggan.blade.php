@@ -4,7 +4,7 @@
 <div class="main-ta">
     <div class="con-ta py-3">
       <div class="j-ta w-100 px-3  pb-2">
-          <span>Data Akun</span>
+          <span class="t-jta">Data Akun</span>
           <button
             type="button"
             class="btn-blue"

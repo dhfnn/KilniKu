@@ -4,7 +4,7 @@
 <div class="main-ta">
     <div class="con-ta py-3">
       <div class="j-ta w-100 px-3  pb-2">
-          <span>Data Akun</span>
+          <span class="t-jta">Data Akun</span>
           <button
             type="button"
             class="btn-blue"
@@ -32,6 +32,20 @@
         </table>
             </div>
             <script>
+                    // Fungsi untuk menampilkan pratinjau gambar setelah dipilih
+    $(document).ready(function() {
+  $('#image').change(function() {
+        var input = this;
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            $('#preview').attr('src', e.target.result).show();
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      });
+    });
+
                 $(document).ready(function() {
                     $('#tableDataKaryawan').DataTable({
                         lengthMenu: [ [5, 10, 20], [5, 10, 20] ],

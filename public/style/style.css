@@ -285,8 +285,36 @@ button.btn-blue i {
   color: var(--color-blue);
 }
 
-.modal-xl {
-  --bs-modal-width: 100px !imporntant;
+.button-image {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.cont-preview {
+  max-height: 120px;
+  max-width: 120px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.cont-preview #preview {
+  width: 100%;
+  height: 120px;
+  display: block;
+}
+
+#preview {
+  background-image: cover;
+}
+
+.custom-file-upload {
+  border: 1px solid rgba(0, 0, 0, 0.158);
+  border-radius: 7px;
+  font-size: 12px !important;
+  color: var(--color-greyM);
+  font-weight: bold !important;
 }
 
 .con {
@@ -727,7 +755,7 @@ section.container-main section.main section.con-main div.main .main-ta .con-ta .
 section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta .text-td {
   color: var(--color-blue);
 }
-section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta span {
+section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta span.t-jta {
   font-size: var(--fs-st);
   font-weight: bold;
 }
@@ -761,7 +789,7 @@ section.container-main section.main section.con-main div.main .main-ta span.st-d
   margin-left: 4px;
   color: var(--color-greyM);
   font-family: var(--font-d);
-  font-size: 12px;
+  font-size: 12px !important;
   font-style: normal;
   font-weight: 500;
   line-height: normal;

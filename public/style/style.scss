@@ -283,8 +283,34 @@ button.btn-blue {
         color: var(--color-blue);
     }
 }
-.modal-xl{
-    --bs-modal-width: 100px !imporntant;
+.button-image {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+.cont-preview{
+    max-height: 120px;
+    max-width: 120px;
+    overflow:hidden;
+    border-radius: 50%;
+    #preview{
+        width: 100%;
+        height: 120px;
+        display: block;
+    
+    }
+}
+#preview {
+    background-image: cover;
+}
+.custom-file-upload {
+    border: 1px solid rgba(0, 0, 0, 0.158);
+    border-radius: 7px;
+    font-size: 12px !important;
+    color: var(--color-greyM);
+    font-weight: bold !important;
 }
 .con {
     background-color: var(--color-greyS);
@@ -787,7 +813,7 @@ section.container-main {
                                 color: var(--color-blue);
                             }
 
-                            span {
+                            span.t-jta {
                                 font-size: var(--fs-st);
                                 font-weight: bold;
                             }
@@ -828,7 +854,7 @@ section.container-main {
                         margin-left: 4px;
                         color: var(--color-greyM);
                         font-family: var(--font-d);
-                        font-size: 12px;
+                        font-size: 12px !important;
                         font-style: normal;
                         font-weight: 500;
                         line-height: normal;
