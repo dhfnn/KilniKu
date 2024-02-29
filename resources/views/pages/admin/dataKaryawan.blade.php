@@ -15,7 +15,8 @@
           </button>
           <!-- Modal -->
         @include('modals.tambahKaryawan')
-        {{-- @include('modals.editKaryawan') --}}
+        @include('modals.lihatKaryawan')
+        @include('modals.editKaryawan')
       </div>
       <table id="tableDataKaryawan" class="table table-responsive table-standart " style="width:100%">
           <thead>
@@ -51,7 +52,8 @@
                         lengthMenu: [ [5, 10, 20], [5, 10, 20] ],
                         processing: true,
                         serverSide: true,
-                        ajax:"{{ url('/getDatakaryawan') }}",
+                        ajax: "{{ url('/getDatakaryawan') }}",
+
                         columns: [
                             {
                                 data: 'DT_RowIndex',
@@ -88,6 +90,15 @@
 
                 $('#mtK').click(function(){
                       $('#modaltdKaryawan').modal('show')
+                  })
+                  $('body').on('click', '#btn-ld' ,function(e){
+                    $('#modalldKaryawan').modal('show')
+
+                  })
+                  $('body').on('click', '#btn-ed' ,function(e){
+                    console.log('halooooo');
+                    $('#modaledKaryawan').modal('show')
+
                   })
             </script>
 

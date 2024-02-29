@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -72,21 +71,14 @@
             </div>
 
             <div class="con-si">
-              <div onclick="toggleSubMenu('submenu2')" class="col side-item {{ Request::is('produk*') ? 'si-active' : '' }} d-flex justify-content-between">
-                <div class="d-flex align-items-center">
-                  <div class="logo-item {{ Request::is('produk*') ? 'li-active' : '' }}">
-                    <i class="fa-duotone fa-box-archive"></i>
-                  </div>
-                  <span>Produk</span>
-                </div>
-                <i class="fa-solid fa-angle-right me-3 panah-si"></i>
-
-              </div>
-              <div class="submenu-side" id="submenu2">
-                <div class="submenu-item"></div>
-                <div class="submenu-item"></div>
-                <div class="submenu-item"></div>
-              </div>
+                <a href="{{ Request::is('produk*') ? '#' : '/produk'  }}" class="l-dash" >
+                    <div  class="col side-item {{ Request::is('produk*') ? 'si-active' : '' }}">
+                      <div class="logo-item {{ Request::is('produk*') ? 'li-active' : '' }}">
+                        <i class="fa-duotone fa-objects-column" style=""></i>
+                      </div>
+                      <span>Produk<span>
+                    </div>
+                </a>
             </div>
 
             <div class="con-si">
@@ -156,7 +148,8 @@
     $('.it-data, .slt-data, .tt-data').on('input change', function() {
                     console.log('teks dihaous')
                     var inputId = $(this).attr('id')
-                    $(`#${inputId}-error`).text('')
+                    $('#' + inputId + '-error').text('');
+
                 })
                 $('.close-crud').click(function() {
                       $('.text-error').text('');

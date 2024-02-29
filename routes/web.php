@@ -6,6 +6,7 @@ use App\Http\Controllers\DashPage;
 use App\Http\Controllers\employeeController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\pelangganController;
+use App\Http\Controllers\produkController;
 use App\Http\Controllers\supplierController;
 use App\Http\Middleware\roleAkses; // Ubah "app" menjadi "App"
 
@@ -50,6 +51,11 @@ Route::middleware(['auth'])->group(function(){
         route::controller(karyawanController::class)->group(function(){
             Route::get('/getDatakaryawan', 'getData');
         });
+        Route::resource('/produk', produkController::class);
+        route::controller(produkController::class)->group(function(){
+            Route::get('/getDataProduk', 'getData');
+        });
+
 
 
     });

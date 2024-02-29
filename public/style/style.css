@@ -770,7 +770,8 @@ section.container-main section.main section.con-main div.main .main-ta .con-ta .
   color: white;
 }
 section.container-main section.main section.con-main div.main .main-ta .t-edit,
-section.container-main section.main section.con-main div.main .main-ta .t-hapus {
+section.container-main section.main section.con-main div.main .main-ta .t-hapus,
+section.container-main section.main section.con-main div.main .main-ta .t-lihat {
   border: none;
   font-size: var(--fs-s);
   padding: 2px 10px;
@@ -784,6 +785,11 @@ section.container-main section.main section.con-main div.main .main-ta .t-edit {
 section.container-main section.main section.con-main div.main .main-ta .t-hapus {
   color: var(--color-greyS);
   background-color: rgba(255, 0, 0, 0.568);
+}
+section.container-main section.main section.con-main div.main .main-ta .t-lihat {
+  background-color: transparent;
+  color: var(--color-blue);
+  border: 1px var(--color-blue) solid;
 }
 section.container-main section.main section.con-main div.main .main-ta span.st-data {
   margin-left: 4px;
