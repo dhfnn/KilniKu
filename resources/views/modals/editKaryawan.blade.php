@@ -13,45 +13,45 @@
                         <div class="col mt-3">
                             <div class="col d-flex justify-content-between ">
                                 <span class="st-data">Nama</span>
-                                <span class="text-error" id="ed-supplierName-error"></span>
+                                <span class="text-error" id="ed-name-error"></span>
                             </div>
-                            <input type="text" class="it-data w-100 px-2" name="supplierName" id="ed-supplierName">
+                            <input type="text" class="it-data w-100 px-2" name="name" id="ed-name">
                         </div>
                         <div class="row mt-2 mx-0 p-0">
                             <div class="col ps-0 ">
                                 <div class="col d-flex justify-content-between ">
                                     <span class="st-data">Telepon</span>
-                                    <span class="text-error" id="ed-supplierName-error"></span>
+                                    <span class="text-error" id="ed-phoneNumber-error"></span>
                                 </div>
-                                <input type="text" class="it-data w-100 px-2" name="supplierName" id="ed-supplierName">
+                                <input type="text" class="it-data w-100 px-2" name="phoneNumber" id="ed-phoneNumber">
                             </div>
                             <div class="col pe-0">
                                 <div class="col d-flex justify-content-between ">
                                     <span class="st-data">Tanggal Lahir</span>
-                                    <span class="text-error" id="ed-supplierName-error"></span>
+                                    <span class="text-error" id="ed-birthdate-error"></span>
                                 </div>
-                                <input type="date" class="it-data w-100 px-2" name="supplierName" id="ed-supplierName">
+                                <input type="date" class="it-data w-100 px-2" name="birthdate" id="ed-birthdate">
                             </div>
                         </div>
                         <div class="col mt-3">
                             <div class="col d-flex justify-content-between ">
                                 <span class="st-data">Jenis Kelamin</span>
-                                <span class="text-error" id="ed-supplierName-error"></span>
+                                <span class="text-error" id="ed-gender-error"></span>
                             </div>
                             <div class="col d-flex">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                      Laki-laki
+                                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="Laki-laki" checked>
+                                    <label class="form-check-label" for="gender1">
+                                    Laki-laki
                                     </label>
-                                  </div>
-                                  <div class="form-check ms-2">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                      Perempuan
+                                </div>
+                                <div class="form-check ms-2">
+                                    <input class="form-check-input" type="radio" name="gender" id="gender2" value="Perempuan">
+                                    <label class="form-check-label" for="gender2">
+                                    Perempuan
                                     </label>
 
-                                  </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                     <div class="col-8 ">
                         <div class="col d-flex justify-content-between ">
                             <span class="st-data">Alamat</span>
-                            <span class="text-error" id="ed-supplierName-error"></span>
+                            <span class="text-error" id="ed-address-error"></span>
                         </div>
                         <textarea name="" cols="30" rows="10" class="tt-data" id="ed-address"></textarea>
 
@@ -84,26 +84,29 @@
                         <div class="col  ">
                             <div class="col d-flex justify-content-between ">
                                 <span class="st-data">Posisi/Jabatan </span>
-                                <span class="text-error" id="ed-supplierName-error"></span>
+                                <span class="text-error" id="td-position-error"></span>
                             </div>
-                            <select name="role" id="ed-role" class="slt-data">
-                                <option value="">Pilih Role</option>
-                                <option value="admin">Admin</option>
-                                <option value="petugas">Petugas</option>
+                            <select name="role" id="te-position" class="slt-data">
+                                <option value="">Pilih Posisi</option>
+                                <option value="Dokter">Dokter</option>
+                                <option value="Perawat">Perawat</option>
+                                <option value="Karyawan">Karyawan</option>
+                                <option value="Farmasis">Farmasis</option>
+                                <option value="Administrasi">Administrasi</option>
                             </select>
                         </div>
                         <div class="col mt-3 ">
                             <div class="col d-flex justify-content-between ">
                                 <span class="st-data">Mulai Bekerja</span>
-                                <span class="text-error" id="ed-supplierName-error"></span>
+                                <span class="text-error" id="ed-startWork-error"></span>
                             </div>
-                            <input type="date" class="it-data w-100 px-2" name="supplierName" id="ed-supplierName">
+                            <input type="date" class="it-data w-100 px-2" name="startWork" id="ed-startWork">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end">
-                <button class="btn-add p-1 mt-3 eds">Tambah</button>
+                <button class="btn-add p-1 mt-3 eds">Ubah</button>
             </div>
         </div>
     </div>

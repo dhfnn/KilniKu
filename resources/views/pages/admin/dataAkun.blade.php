@@ -13,9 +13,7 @@
           >
           <i class="fa-regular fa-plus"></i>
           </button>
-          <!-- Modal -->
-        @include('modals.tambahAkun')
-        @include('modals.editAkun')
+
       </div>
       <table id="tableDataAKun" class="table table-responsive table-standart " style="width:100%">
           <thead>
@@ -30,6 +28,9 @@
 
         </table>
             </div>
+                      <!-- Modal -->
+        @include('modals.tambahAkun')
+        @include('modals.editAkun')
             <script >
 
                 $(document).ready(function(){

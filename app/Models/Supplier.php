@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Supplier extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $table = 'supplier';
     protected $primaryKey = 'supplierID';
     protected $fillable = [
         'supplierName', 'phoneNumber'
     ];
-    public $timestamps = false;
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'supplierID', 'supplierID');
+    }
 
 }

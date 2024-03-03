@@ -15,8 +15,25 @@
     <link rel="stylesheet" href="{{ asset('simple-notify\dist\simple-notify.css') }}">
   <script src="{{ asset('DataTables/jQuery-3.7.0/jquery-3.7.0.js') }}"></script>
   <script src="{{ asset('DataTables/datatables.js') }}"></script>
+  <link rel="stylesheet" href="{{ asset('select2/dist/css/select2.css') }}">
+  <script src="{{ asset('select2/dist/js/select2.js') }}"></script>
 
+  </head>
+  <style>
+    .select2-container{
 
+        z-index: 1000000;
+        width: 100% !important
+    }
+    .select2-dropdown{
+        z-index: 1000000;
+
+    }
+    #modaltdProduk{
+        z-index: 100000;
+
+    }
+  </style>
   <body>
 
 
@@ -74,7 +91,7 @@
                 <a href="{{ Request::is('produk*') ? '#' : '/produk'  }}" class="l-dash" >
                     <div  class="col side-item {{ Request::is('produk*') ? 'si-active' : '' }}">
                       <div class="logo-item {{ Request::is('produk*') ? 'li-active' : '' }}">
-                        <i class="fa-duotone fa-objects-column" style=""></i>
+                        <i class="fa-duotone fa-box-archive"></i>
                       </div>
                       <span>Produk<span>
                     </div>

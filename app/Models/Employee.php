@@ -18,5 +18,7 @@ class Employee extends Model
         'phoneNumber',
         'address',
         'startWork',
+        'gender',
+        'image'
     ];
 }

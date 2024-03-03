@@ -50,10 +50,15 @@ Route::middleware(['auth'])->group(function(){
         Route::resource('/data/dataKaryawan', karyawanController::class);
         route::controller(karyawanController::class)->group(function(){
             Route::get('/getDatakaryawan', 'getData');
+            // route::get('/data/dataKaryawan/{id}/edit', 'edit');
+
         });
         Route::resource('/produk', produkController::class);
         route::controller(produkController::class)->group(function(){
             Route::get('/getDataProduk', 'getData');
+            Route::get('/getsupplier', 'getsupplier');
+            // Route::get('/produk/{id}', 'update');
+
         });
 
 

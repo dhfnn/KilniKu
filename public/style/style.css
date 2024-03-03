@@ -13,8 +13,15 @@ a {
   --color-orange: #fe8d00;
   --color-blueS: rgba(40, 117, 219, 0.8);
   --color-blue: #1166d8;
+  --color-greenS: #11d81f;
+  --color-bluesS: #11cad8;
+  --color-red: #d81f11;
+  --color-yellow: #cad811;
+  --color-purple: #8311d8;
+  --color-pink: #d811ca;
   --fs-st: 18px;
   --fs-vs: 10px;
+  --fs-ss: 12px;
   --fs-s: 14px;
   --fs-m: 20px;
   --fs-lg: 25px;
@@ -285,6 +292,14 @@ button.btn-blue i {
   color: var(--color-blue);
 }
 
+.btn-add {
+  border-radius: 5px;
+  border: none;
+  font-size: var(--fs-s);
+  background: var(--gradient-primary) !important;
+  color: white;
+}
+
 .button-image {
   display: inline-block;
   padding: 6px 12px;
@@ -303,9 +318,20 @@ button.btn-blue i {
   width: 100%;
   height: 120px;
   display: block;
+  background-image: cover;
 }
 
-#preview {
+.cont-preview2 {
+  max-height: 120px;
+  min-width: 200px;
+  max-width: 240px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.cont-preview2 #preview2 {
+  width: 100%;
+  height: 120px;
+  display: block;
   background-image: cover;
 }
 
@@ -315,6 +341,54 @@ button.btn-blue i {
   font-size: 12px !important;
   color: var(--color-greyM);
   font-weight: bold !important;
+}
+
+.card-product:hover {
+  transform: translateY(-3px);
+  transition: transform 0.5s ease;
+  max-width: 255px;
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-product {
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.082);
+  max-width: 250px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.card-product .con-img {
+  overflow: hidden;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 150px;
+  max-height: 150px;
+  display: flex;
+  align-items: center;
+}
+.card-product .con-img img {
+  width: 100%;
+  height: auto;
+}
+.card-product .card-top span {
+  font-size: var(--fs-st);
+  color: rgba(0, 0, 0, 0.808);
+  font-weight: 600;
+}
+.card-product .card-center {
+  min-height: 100px;
+  max-height: 100px;
+}
+.card-product .card-center p {
+  font-size: var(--fs-s);
+  font-weight: 400;
+  color: var(--color-greyM);
+}
+.card-product .card-bottom span {
+  font-size: var(--fs-ss);
+  font-weight: bold;
+  background-color: var(--color-greenS);
+  color: white;
+  border-radius: 6px;
 }
 
 .con {
@@ -762,13 +836,6 @@ section.container-main section.main section.con-main div.main .main-ta .con-ta .
 section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta i {
   color: var(--color-blue);
 }
-section.container-main section.main section.con-main div.main .main-ta .con-ta .btn-add {
-  border-radius: 5px;
-  border: none;
-  font-size: var(--fs-s);
-  background: var(--gradient-primary) !important;
-  color: white;
-}
 section.container-main section.main section.con-main div.main .main-ta .t-edit,
 section.container-main section.main section.con-main div.main .main-ta .t-hapus,
 section.container-main section.main section.con-main div.main .main-ta .t-lihat {
@@ -814,7 +881,7 @@ section.container-main section.main section.con-main div.main .main-ta input.it-
 section.container-main section.main section.con-main div.main .main-ta select.slt-data {
   width: 100%;
   border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.158);
+  border: 1px solid rgba(0, 0, 0, 0.158) !important;
   height: 32px;
 }
 section.container-main section.main section.con-main div.main .main-ta select.slt-data:focus {

@@ -92,8 +92,6 @@
                 var id =$(this).data('id')
                 $('.hapusdataAkun').click(function() {
                     hapus(id)
-
-                    console.log('jalo');
                 })
             })
 
@@ -113,8 +111,13 @@
                     url:url,
                     type:type,
                     data:{
-                        supplierName : $(`#${nameId}-supplierName`).val(),
-                        phoneNumber : $(`#${nameId}-phoneNumber`).val()
+                        name: $('#td-name').val(),
+                        supplierName: $('#td-supplierName').val(),
+                        tanggalLahir: $('#td-tanggalLahir').val(),
+                        gender: $('input[name="gender"]:checked').val(),
+                        address: $('#td-address').val(),
+                        position: $('#td-position').val(),
+                        startWork: $('#td-startWork').val()
                     },
                     success: function(response) {
                         console.log(response.errors);

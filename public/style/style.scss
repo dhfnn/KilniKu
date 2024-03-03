@@ -13,9 +13,16 @@ a {
     --color-orange: #fe8d00;
     --color-blueS: rgba(40, 117, 219, 0.8);
     --color-blue: #1166d8;
+    --color-greenS: #11d81f;
+    --color-bluesS: #11cad8;
+    --color-red: #d81f11;
+    --color-yellow: #cad811;
+    --color-purple: #8311d8;
+    --color-pink: #d811ca;
     --fs-st: 18px;
 
     --fs-vs: 10px;
+    --fs-ss: 12px;
     --fs-s: 14px;
     --fs-m: 20px;
     --fs-lg: 25px;
@@ -170,13 +177,9 @@ a.paginate_button:hover {
 .dataTables_filter label {
     font-size: 14px !important;
     outline: none;
-    // border: 1px solid #ebebeb !important;
 }
 .dataTables_filter label input {
-    // font-size: 14px !important;
     outline: none !important;
-    // border: none;
-    // border: 1px solid #ebebeb !important;
 }
 
 .dataTables_length label {
@@ -260,6 +263,7 @@ a.paginate_button:hover {
         margin: 0px !important;
     }
 }
+// editor.formatOnSave
 .text-error {
     margin-left: 4px;
     color: rgba(255, 0, 0, 0.747);
@@ -283,6 +287,13 @@ button.btn-blue {
         color: var(--color-blue);
     }
 }
+.btn-add {
+    border-radius: 5px;
+    border: none;
+    font-size: var(--fs-s);
+    background: var(--gradient-primary) !important;
+    color: white;
+}
 .button-image {
     display: inline-block;
     padding: 6px 12px;
@@ -290,27 +301,95 @@ button.btn-blue {
     background-color: #f9f9f9;
     border-radius: 4px;
 }
-.cont-preview{
+.cont-preview {
     max-height: 120px;
     max-width: 120px;
-    overflow:hidden;
+    overflow: hidden;
     border-radius: 50%;
-    #preview{
+    #preview {
         width: 100%;
         height: 120px;
         display: block;
-
+        background-image: cover;
     }
 }
-#preview {
-    background-image: cover;
+.cont-preview2 {
+    max-height: 120px;
+    min-width: 200px;
+    max-width: 240px;
+    overflow: hidden;
+    border-radius: 10px;
+    #preview2 {
+        width: 100%;
+        height: 120px;
+        display: block;
+        background-image: cover;
+    }
 }
+
 .custom-file-upload {
     border: 1px solid rgba(0, 0, 0, 0.158);
     border-radius: 7px;
     font-size: 12px !important;
     color: var(--color-greyM);
     font-weight: bold !important;
+}
+    .card-product:hover{
+        transform: translateY(-3px);
+        transition: transform 0.5s ease;
+    max-width: 255px;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
+
+
+
+    }
+
+.card-product {
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.082);
+    max-width: 250px;
+    padding: 10px;
+    border-radius: 10px;
+
+    .con-img {
+        overflow: hidden;
+        border-radius: 10px;
+        width: 100%;
+        min-height: 150px;
+        max-height: 150px;
+        display: flex;
+        align-items: center;
+        // background-color: red;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    .card-top {
+        span {
+            font-size: var(--fs-st);
+            color: rgba(0, 0, 0, 0.808);
+            font-weight: 600;
+        }
+    }
+    .card-center {
+        min-height:100px;
+        max-height:100px;
+        p {
+            font-size: var(--fs-s);
+            font-weight: 400;
+            color: var(--color-greyM);
+        }
+    }
+    .card-bottom {
+        span {
+            font-size: var(--fs-ss);
+            font-weight: bold;
+            background-color: var(--color-greenS);
+            color: white;
+            border-radius: 6px;
+        }
+    }
 }
 .con {
     background-color: var(--color-greyS);
@@ -822,13 +901,7 @@ section.container-main {
                                 color: var(--color-blue);
                             }
                         }
-                        .btn-add {
-                            border-radius: 5px;
-                            border: none;
-                            font-size: var(--fs-s);
-                            background: var(--gradient-primary) !important;
-                            color: white;
-                        }
+
                     }
 
                     .t-edit,
@@ -850,9 +923,9 @@ section.container-main {
 
                         background-color: rgba(255, 0, 0, 0.568);
                     }
-                    .t-lihat{
+                    .t-lihat {
                         background-color: transparent;
-                        color:var(--color-blue);
+                        color: var(--color-blue);
                         border: 1px var(--color-blue) solid;
                     }
 
@@ -880,9 +953,10 @@ section.container-main {
                     select.slt-data {
                         width: 100%;
                         border-radius: 6px;
-                        border: 1px solid rgba(0, 0, 0, 0.158);
+                        border: 1px solid rgba(0, 0, 0, 0.158)!important;
                         height: 32px;
                     }
+
                     select.slt-data:focus {
                         box-shadow: 0px 0px 5px 5px rgba(40, 118, 219, 0.031);
                         border: none;
