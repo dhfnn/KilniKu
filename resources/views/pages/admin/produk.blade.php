@@ -12,11 +12,19 @@
           >
           <i class="fa-regular fa-plus"></i>
           </button>
+          <input type="text" id="searchInput" placeholder="Cari produk...">
+
+          <button id="stockFilter">
+            tekan
+          </button>
+          <button id="stockFilterTen">
+            cari
+          </button>
 
     </div>
 </div>
 <div class="row row-cols-4" id="con-row">
-    
+
 
 
 </div>
@@ -28,6 +36,51 @@
 <script>
 
     $(document).ready(function() {
+
+$('#stockFilter').on('click', function() {
+    var currentOrder = $(this).data('order');
+    var cards = $('.con-card');
+    if (currentOrder === 'asc') {
+        cards.sort(function(a, b) {
+            return parseInt($(a).find('.card-bottom').text().split(':')[1]) - parseInt($(b).find('.card-bottom').text().split(':')[1]);
+        });
+        $(this).data('order', 'desc');
+    } else {
+        cards.sort(function(a, b) {
+            return parseInt($(b).find('.card-bottom').text().split(':')[1]) - parseInt($(a).find('.card-bottom').text().split(':')[1]);
+        });
+        $(this).data('order', 'asc');
+    }
+    $('#con-row').empty();
+    cards.each(function() {
+        $('#con-row').append($(this));
+    });
+});
+
+$('#stockFilterTen').on('click', function() {
+    console.log('halooo');
+    $('.con-card').hide();
+    $('.con-card').each(function() {
+        var stock = parseInt($(this).find('.card-bottom').text().split(':')[1]);
+        if (stock <= 10) {
+            $(this).show();
+        }
+    });
+});
+$('#searchInput').on('input', function() {
+    var searchText = $(this).val().toLowerCase();
+    $('.con-card').hide();
+    $('.con-card').each(function() {
+        var productName = $(this).find('.card-top span').text().toLowerCase();
+        if (productName.includes(searchText)) {
+            $(this).show();
+        }
+    });
+});
+
+
+
+
         $('[data-toggle="tooltip"]').tooltip();
 
     function selectForm() {
@@ -50,8 +103,8 @@
     })
 }
 selectForm();
-        $('#td-supplierID').select2();   
-        $('#tdt-supplierID').select2();   
+        $('#td-supplierID').select2();
+        $('#tdt-supplierID').select2();
             $('#td-image').change(function() {
             var input = this
             if (input.files && input.files[0]) {
@@ -76,7 +129,7 @@ selectForm();
 
         $('#mtp').click(function(){
             $('#modaltdProduk').modal('show')
-            console.log('toloooooooooooooooooooool');
+
         })
 
         $('#card-product').click(function(){
@@ -92,7 +145,7 @@ selectForm();
                             `<div class="col  mt-2 con-card" data-toggle="tooltip"  data-toggle="modal" data-target="#productDetailModal" data-product-id="${products.productID}">
         <div class="card-product bg-white" >
             <div class="con-img">
-  
+
                 <img src="{{asset('storage/image-products/${products.image}')}}" class="img-card" alt="">
             </div>
             <div class="col card-top px-2 mt-2">
@@ -117,7 +170,7 @@ selectForm();
             $('.select2-container').hide()
             $('.t-detailK').hide()
             $('.pt-detailp').hide()
-            $('.btn-hdd').show()
+            $('#btn-hdD').show()
 
 
 
@@ -129,14 +182,14 @@ selectForm();
                     $('.select2-container').show()
                     $('.cd-supplierID').hide()
                     $('.cd-category').hide()
-            $('.btn-hdd').hide()
-                    $('.tdt-read').prop('readonly', false)  
+                    $('#btn-hdD').hide()
+                    $('.tdt-read').prop('readonly', false)
                     });
-  
+
     $('.btn-closeD').click(function(){
             $('.tdt-read').prop('readonly', true);
             $('.tdt-slt').hide()
-            $('.select2-container').hide()
+            $('.select2-container').show()
             $('.t-detailK').hide()
             $('.pt-detailp').hide()
             $('.t-detailp').show()
@@ -145,6 +198,7 @@ selectForm();
             })
 
     $('.t-detailK').click(function(){
+
         $('.tdt-read').prop('readonly', true);
             $('.tdt-slt').hide()
             $('.select2-container').hide()
@@ -152,7 +206,7 @@ selectForm();
             $('.pt-detailp').hide()
             $('.cd-supplierID').show()
             $('.t-detailp').show()
-            $('.btn-hdd').show()
+            $('#btn-hdD').show()
 
             $('.cd-category').show()
     })
@@ -165,18 +219,27 @@ selectForm();
                     console.log(response.hasil);
                     const sanitizedFilename = encodeURIComponent('/'+response.hasil.image);
                     const urlImg = `{{ asset('storage/image-products/') }}` + sanitizedFilename;
+    $('.t-detailK').click(function(){
+        showEdit()
+    })
+                    showEdit()
+                    function showEdit() {
+                        $('#tdt-image').val('')
+                        $('#previewoi').attr('src', urlImg);
+                        $('#tdt-name').val(response.hasil.name);
+                        $('.cd-category').val(response.hasil.category);
+                        $('#tdt-stock').val(response.hasil.stock);
+                        $('#tdt-description').val(response.hasil.description);
+                        $('.cd-supplierID').val(response.hasil.supplier.supplierName);
+                        $('#tdt-expiryDate').val(response.hasil.expiryDate);
+                        $('#tdt-purchasePrice').val(response.hasil.purchasePrice);
+                        $('#tdt-sellingPrice').val(response.hasil.sellingPrice);
+                        $('#lihatForm').attr('data-produk-id', response.hasil.productID)
+                        $('#btn-hdD').attr('data-produk-id', response.hasil.productID)
+                        $('#tdt-category option[value="' + response.hasil.category + '"]').prop('selected', true);
+                        $('#tdt-supplierID option[value="' + response.hasil.supplierName + '"]').prop('selected', true);
+                    }
 
-                    $('#previewoi').attr('src', urlImg);
-                    $('#tdt-name').val(response.hasil.name);
-                    $('.cd-category').val(response.hasil.category);
-                    $('#tdt-stock').val(response.hasil.stock);
-                    $('#tdt-description').val(response.hasil.description);
-                    $('.cd-supplierID').val(response.hasil.supplierID);
-                    $('#tdt-expiryDate').val(response.hasil.expiryDate);
-                    $('#tdt-purchasePrice').val(response.hasil.purchasePrice);
-                    $('#tdt-sellingPrice').val(response.hasil.sellingPrice);
-                    $('#lihatForm').attr('data-produk-id', response.hasil.productID)
-                    $('#btn-hdD').attr('data-produk-id', response.hasil.productID)
                     $('#modaltdtProduk').modal('show')
                 },
                 error: function(xhr, status, error) {
@@ -184,7 +247,7 @@ selectForm();
                 }
             })
         })
-        // BAGIAN TAMBAH 
+        // BAGIAN TAMBAH
             $('#addForm').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
@@ -194,9 +257,9 @@ selectForm();
             $.ajax({
                 url: url,
                 type: type,
-                data: formData, 
-                contentType: false, 
-                processData: false, 
+                data: formData,
+                contentType: false,
+                processData: false,
                 success: function(response) {
                     console.log(formData);
                 console.log(response.errors);
@@ -206,6 +269,7 @@ selectForm();
                 }
                 if (response.success) {
                         $('#modaltdProduk').modal('hide')
+                        location.reload()
                 }
             },
                 error: function(xhr, status, error) {
@@ -216,34 +280,36 @@ selectForm();
 
 
             $('#lihatForm').submit(function(e) {
-                var formData = new FormData(this);
-                console.log(formData);
-                e.preventDefault();
-                        var id = $(this).data('produk-id'); 
-                        var url = '/produk/' + id; 
-                        var type = 'PUT'; 
-                        var nameId = 'tdt';
-                        $.ajax({
-                            url: url,
-                            type: type,
-                            data: formData, 
-                            contentType: false, 
-                            processData: false, 
-                            success: function(response) {
-                                console.log(formData)
-                                for (var key in response.errors) {
-                                    var pesanErrors = response.errors[key][0];
-                                    $(`#${nameId}-${key}-error`).text(pesanErrors);
-                                }
-                                if (response.success) {
-                                    $('#modaltdProduk').modal('hide')
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(xhr.responseText);
-                            }
-                        });
-                    });
+                e.preventDefault()
+               const formData = new FormData(this)
+               const id = $(this).data('produk-id')
+
+               $.ajax({
+                                    url:'/update-produk/'+id,
+                                    method:'POST',
+                                    data: formData,
+                                    cache:false,
+                                    contentType:false,
+                                    processData:false,
+                                    dataType:'json',
+                                    success: function(response){
+                                        if (response.errors) {
+                                            console.log(response.hasil);
+                                            for (var key in response.errors) {
+                                                    var pesanErrors = response.errors[key][0];
+                                                    $(`#tdt-${key}-error`).text(pesanErrors);
+                                                }
+                                        }
+                                        if(response.success){
+                                            $('#modaltdtProduk').modal('hide');
+                                            location.reload();
+                                        }
+                                    },
+                                    error:function(xhr, status,error){
+                                        console.log(xhr.responseText);
+                                    }
+                                })
+                });
 
 
                     //button hapus

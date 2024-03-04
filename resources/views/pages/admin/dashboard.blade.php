@@ -8,24 +8,56 @@
         </div>
         <div class="main-da row m-0 px-3">
           <div class="tkotak col-4 col-lg-3 ps-0">
-            <div class="con-kotak col bg-white d-flex align-items-center">
+            <div class="con-kotak  bg-white d-flex align-items-center">
               <div class="logo-da">
                 <i class="fa-duotone fa-capsules"></i>
               </div>
+              <div class="ms-3 col d-flex flex-column ">
+                <span class="tj-das">
+                    Jumlah produk
+                </span>
+                <span class="ti-das">
+                    100
+                </span>
+
             </div>
+            </div>
+
+
           </div>
           <div class="tkotak col-4 col-lg-3 ps-0">
-            <div class="con-kotak col bg-white d-flex align-items-center">
+            <div class="con-kotak bg-white d-flex align-items-center">
               <div class="logo-da">
                 <i class="fa-duotone fa-hospital-user"></i>
               </div>
+              <div class="ms-3 col d-flex flex-column ">
+                <span class="tj-das">
+                    Jumlah Pasien
+                </span>
+                <span class="ti-das">
+                    100
+                </span>
+
+            </div>
             </div>
           </div>
+
+
           <div class="tkotak col-4 col-lg-3 ps-0">
-            <div class="con-kotak col bg-white d-flex align-items-center">
+            <div class="con-kotak bg-white d-flex align-items-center">
               <div class="logo-da">
                 <i class="fa-duotone fa-users"></i>
               </div>
+              
+              <div class="ms-3 col d-flex flex-column ">
+                <span class="tj-das">
+                    Jumlah Karyawan
+                </span>
+                <span class="ti-das">
+                    100
+                </span>
+
+            </div>
             </div>
           </div>
         </div>

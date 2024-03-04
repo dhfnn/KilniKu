@@ -54,7 +54,7 @@
                         <div class="mt-3 ">
                             <div class="d-flex justify-content-center ">
                                 <div class="cont-preview2">
-                                    <img id="preview2" src="{{ asset('img/pp.png') }}" alt="Preview Gambar" style="max-width: 300px;" >
+                                    <img id="preview2" src="{{ asset('img/imageLogo.png') }}" alt="Preview Gambar" style="max-width: 300px;" >
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center pt-3">
@@ -91,7 +91,7 @@
                                 <span class="st-data">Harga Beli </span>
                                 <span class="text-error" id="td-purchasePrice-error"></span>
                             </div>
-                            <input type="number" class="it-data w-100 px-2" name="purchasePrice" id="td-purchasePrice">
+                            <input type="number" placeholder="per-satuan" class="it-data w-100 px-2" name="purchasePrice" id="td-purchasePrice">
 
                         </div>
                         <div class="col ">
@@ -99,7 +99,7 @@
                                 <span class="st-data">Harga Jual</span>
                                 <span class="text-error" id="td-sellingPrice-error"></span>
                             </div>
-                            <input type="number" class="it-data w-100 px-2" name="sellingPrice" id="td-sellingPrice">
+                            <input type="number" placeholder="per-satuan" class="it-data w-100 px-2" name="sellingPrice" id="td-sellingPrice">
                         </div>
                 </div>
             </div>

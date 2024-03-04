@@ -1,6 +1,6 @@
 <div class="modal fade " id="modaltdtProduk" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-labelledby="modalTitleId" aria-hidden="true" >
     <div class="modal-dialog modal-lg"  role="document">
-        <form action="" id="lihatForm" enctype="multipart/form-data">
+        <form action="#" method="POST" id="lihatForm" enctype="multipart/form-data">
         <div class="modal-content border-0 p-2 px-3" >
             <div class="d-flex justify-content-between border-bottom py-1">
                 <span class="text-td">Tambah Data</span>
@@ -38,7 +38,7 @@
                                     <span class="st-data">Jumlah</span>
                                     <span class="text-error" id="tdt-stock-error"></span>
                                 </div>
-                                <input type="text" class="it-data tdt-read w-100 px-2" name="stock" id="tdt-stock" >
+                                <input type="number" class="it-data tdt-read w-100 px-2" name="stock" id="tdt-stock" >
                             </div>
                         </div>
 
@@ -56,7 +56,7 @@
                         <div class="mt-3 ">
                             <div class="d-flex justify-content-center ">
                                 <div class="cont-preview2">
-                                    <img id="previewoi" alt="Preview Gambar" style="max-width: 300px;" >
+                                    <img id="previewoi" class="previewgambar" alt="Preview Gambar" style="max-width: 300px;" >
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center pt-3 ">
@@ -94,7 +94,7 @@
                                 <span class="st-data">Harga Beli </span>
                                 <span class="text-error" id="tdt-purchasePrice-error"></span>
                             </div>
-                            <input type="number" class="it-data tdt-read w-100 px-2" name="purchasePrice" id="tdt-purchasePrice" >
+                            <input type="number" placeholder="per-satuan" class="it-data tdt-read w-100 px-2" name="purchasePrice" id="tdt-purchasePrice" >
 
                         </div>
                         <div class="col ">
@@ -102,17 +102,17 @@
                                 <span class="st-data">Harga Jual</span>
                                 <span class="text-error" id="tdt-sellingPrice-error"></span>
                             </div>
-                            <input type="number" class="it-data tdt-read w-100 px-2" name="sellingPrice" id="tdt-sellingPrice" >
+                            <input type="number" placeholder="per-satuan" class="it-data tdt-read w-100 px-2" name="sellingPrice" id="tdt-sellingPrice" >
                         </div>
                 </div>
             </div>
-            <div class="col-12 d-flex justify-content-end">
-                <button type="button" class="t-detailp t-edit btn-eda p-1 mt-3 tdP px-1 fw-bold">Ubah Data ?</button>
-                <button type="button" class="t-detailK t-edit btn-eda p-1 mt-3 tdP px-1 fw-bold">
+            <div class="col-12 d-flex justify-content-end pt-2">
+                <button type="button" class="t-detailp t-edit btn-eda p-1 me-2 tdP px-1 fw-bold">Ubah Data ?</button>
+                <button type="button" class="t-detailK t-edit btn-eda p-1  tdP px-1 fw-bold me-2">
                     Batal
                 </button>
 
-                <button type="submit"  class="pt-detailp btn-add p-1 mt-3 tdP px-1 fw-bold" >
+                <button type="submit" id="id-Pro" class="pt-detailp btn-add p-1  tdP px-1 fw-bold" >
                     Ubah
                 </button>
             </form>

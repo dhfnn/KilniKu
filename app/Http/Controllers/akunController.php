@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Users;
@@ -14,8 +15,12 @@ class akunController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function getDataEm(){
+        $data = Employee::all();
+        return response()->json(['hasil'=>$data]);
+    }
     public function getData(){
-       $data =  Users::orderBy('username', 'asc');
+       $data =  Users::with('employee')->get();
         return DataTables::of($data)
        ->addIndexColumn()
        ->addColumn('ACTION', function($data){
@@ -43,13 +48,13 @@ class akunController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'nama'=> 'required',
+            'employeeID'=> 'required',
             'username'=> 'required|unique:Users',
             'password'=>'required',
             'role'=>'required'
         ],
         [
-            'nama.required'=>' Belum diisi!',
+            'employeeID.required'=>' Belum diisi!',
             'username.required'=>'Belum diisi!',
             'password.required'=>'Belum diisi!',
             'role.required'=>'belum dipilih!',
@@ -60,7 +65,7 @@ class akunController extends Controller
             }else {
                 $data = [
                     'username' => $request->username,
-                    'name' => $request->nama,
+                    'employeeID' => $request->employeeID,
                     'password' =>  Hash::make($request->password),
                     'role' => $request->role
 
@@ -70,7 +75,7 @@ class akunController extends Controller
                     return response()->json(['duplicate'=> "Data sudah ada !"]);
                 }else{
                     $o =   Users::create($data);
-                    return response()->json(['success'=> "Data berhasil ditambahkan"]);
+                    return response()->json(['success'=> "Data berhasil ditambahkan", 'hasildata'=> $data]);
                 }
 
 }
@@ -89,9 +94,9 @@ class akunController extends Controller
      */
     public function edit(string $id)
     {
-        // return 'halooo';
-        $data = Users::where('id', $id)->first();
-        return response()->json(['hasil' => $data]);
+        $dataEm = Employee::all();
+        $data = Users::with('employee')->find($id);
+        return response()->json(['hasil' => $data ,'dataEm'=>$dataEm]);
     }
 
     /**
@@ -100,12 +105,12 @@ class akunController extends Controller
     public function update(Request $request, string $id)
     {
         $validate = Validator::make($request->all(), [
-            'nama'=> 'required',
+            'employeeID'=> 'required',
             'username'=> 'required',
             'role'=>'required'
         ],
         [
-            'nama.required'=>' Belum diisi!',
+            'employeeID.required'=>' Belum diisi!',
             'username.required'=>'Belum diisi!',
             'password.required'=>'Belum diisi!',
             'role.required'=>'belum dipilih!',
@@ -115,7 +120,7 @@ class akunController extends Controller
             }else {
                 $data = [
                     'username' => $request->username,
-                    'name' => $request->nama,
+                    'employeeID' => $request->employeeID,
                     'role' => $request->role
 
                 ];

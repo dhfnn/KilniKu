@@ -7,6 +7,7 @@
                         <i class="fa-regular fa-xmark"></i>
                     </button>
                 </div>
+                <form action="" id="formTambahKaryawan" enctype="multipart/form-data">
                 <div class="col m-0 pt-2 mb-2">
                     <div class="row">
                         <div class="col-8">
@@ -60,12 +61,14 @@
                             <div class="col mt-3">
                                 <div class="d-flex justify-content-center ">
                                     <div class="cont-preview">
-                                        <img id="preview" src="{{ asset('img/pp.png') }}" alt="Preview Gambar" style="max-width: 300px;" >
+                                        <img id="previewtambah" class="previewgambar" src="{{ asset('img/pp.png') }}" alt="Preview Gambar" style="max-width: 300px;" >
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center pt-3">
-                                    <input type="file" id="image" style="display: none;" onchange="previewImage()" name="image" id="td-image">
-                                    <label for="image" class="custom-file-upload p-1 px-2 " style="cursor: pointer;">Pilih Gambar</label>
+                                    <input type="file"  style="display: none;"  name="image" id="imagetambah">
+                                    <label for="imagetambah" class="custom-file-upload p-1 px-2 " style="cursor: pointer;">Pilih Gambar</label>
+                                <span class="text-error" id="td-image-error"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -77,7 +80,7 @@
                                 <span class="st-data">Alamat</span>
                                 <span class="text-error" id="td-address-error"></span>
                             </div>
-                            <textarea name="" cols="30" rows="10" class="tt-data" id="td-address"></textarea>
+                            <textarea name="address" cols="30" rows="10" class="tt-data" id="td-address"></textarea>
 
                         </div>
                         <div class="col">
@@ -86,7 +89,7 @@
                                     <span class="st-data">Posisi/Jabatan </span>
                                     <span class="text-error" id="td-position-error"></span>
                                 </div>
-                                <select name="role" id="td-position" class="slt-data">
+                                <select name="position" id="td-position" class="slt-data">
                                     <option value="">Pilih Posisi</option>
                                     <option value="Dokter">Dokter</option>
                                     <option value="Perawat">Perawat</option>
@@ -106,8 +109,9 @@
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-end">
-                    <button class="btn-add p-1 mt-3 tdK">Tambah</button>
+                    <button class="btn-add p-1 mt-3 tdK" >Tambah</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>

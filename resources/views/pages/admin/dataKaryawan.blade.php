@@ -4,7 +4,7 @@
 <div class="main-ta">
     <div class="con-ta py-3">
       <div class="j-ta w-100 px-3  pb-2">
-          <span class="t-jta">Data Akun</span>
+          <span class="t-jta">Data Karyawan</span>
           <button
             type="button"
             class="btn-blue"
@@ -35,19 +35,26 @@
             </div>
             <script>
     $(document).ready(function() {
-  $('#image').change(function() {
+  $('#imagetambah').change(function() {
         var input = this
         if (input.files && input.files[0]) {
           var reader = new FileReader()
           reader.onload = function(e) {
-            $('#preview').attr('src', e.target.result).show()
+            $('#previewtambah').attr('src', e.target.result).show()
           }
           reader.readAsDataURL(input.files[0])
         }
       })
-    })
-
-                $(document).ready(function() {
+  $('#image2').change(function() {
+        var input = this
+        if (input.files && input.files[0]) {
+          var reader = new FileReader()
+          reader.onload = function(e) {
+            $('#previewedit').attr('src', e.target.result).show()
+          }
+          reader.readAsDataURL(input.files[0])
+        }
+      })
                     $('#tableDataKaryawan').DataTable({
                         lengthMenu: [ [5, 10, 20], [5, 10, 20] ],
                         processing: true,
@@ -86,16 +93,15 @@
                             }
                         ]
                     })
-                })
 
                 $('#mtK').click(function(){
-                      $('#modaltdKaryawan').modal('show')
-                  })
-                  $('body').on('click', '#btn-ld' ,function(e){
+                    $('#modaltdKaryawan').modal('show')
+                })
+                $('body').on('click', '#btn-ld' ,function(e){
                     $('#modalldKaryawan').modal('show')
 
-                  })
-                  $('body').on('click', '#btn-ed' ,function(e){
+                })
+                $('body').on('click', '#btn-ed' ,function(e){
                     var id = $(this).data('id')
                     console.log('lolo');
                     var url = '/data/dataKaryawan/'+  id +'/edit'
@@ -104,38 +110,34 @@
                         type:'GET',
                         success: function(response) {
                             console.log(response.data);
+                            const sanitizedFilename = encodeURIComponent('/'+response.data.image);
+                    const urlImg = `{{ asset('storage/image-products/') }}` + sanitizedFilename;
+                            $('#previewedit').attr('src', urlImg)
                             $('#ed-name').val(response.data.name);
                             $('#ed-phoneNumber').val(response.data.phoneNumber);
                             $('#ed-birthdate').val(response.data.birthdate);
                             $('input[name="gender"][value="' + response.data.gender + '"]').prop('checked', true);
                             $('#ed-address').val(response.data.address);
-                            $('#te-position option[value="' + response.data.position + '"]').prop('selected', true);
+                            $('#ed-position option[value="' + response.data.position + '"]').prop('selected', true);
+                            $('#id-kar').attr('data-karyawan-id' , response.data.employeeID);
                             $('#ed-startWork').val(response.data.startWork);
+
                             $('#modaledKaryawan').modal('show')
-
-                            $('.eds').click(function(){
-                                save(id)
-
-                            })
                         }
                         ,
-                            error:function(xhr, status, error){
-                          console.log(xhr.responseText);
-                      }
+                        error:function(xhr, status, error){
+                            console.log(xhr.responseText);
+                        }
 
                     })
 
-                  })
+                })
 
-                  $('.tdK').click(function() {
-                    save()
-                    console.log('hakii')
-                  })
-                  $('body').on('click', '#btn-hd', function(e){
-                       var id =  $(this).data('id');
-                        $('#MhapusData').modal('show')
-                        $('.hapusdataAkun').click(function() {
-                            hapus(id)
+                $('body').on('click', '#btn-hd', function(e){
+                    var id =  $(this).data('id');
+                    $('#MhapusData').modal('show')
+                    $('.hapusdataAkun').click(function() {
+                        hapus(id)
                         })
                 })
                 function hapus(id){
@@ -152,53 +154,70 @@
 
 
 
-                  function save(id =''){
-                    if (id =='') {
-                            var url= '/data/dataKaryawan'
-                            var type = 'POST'
-                            var nameId ='td'
-                            console.log('tambah')
-                    }else{
-                        var url= '/data/dataKaryawan/'+ id
-                            var type = 'PUT'
-                            var nameId ='ed'
-                            console.log('edit')
-                    }
+                //   function save(id =''){
 
-                        $.ajax({
-                            url:url,
-                            type:type,
-                            data: {
-                                name: $('#' + nameId + '-name').val(),
-                                phone: $('#' + nameId + '-phoneNumber').val(),
-                                birthdate: $('#' + nameId + '-birthdate').val(),
-                                phoneNumber: $('#' + nameId + '-phoneNumber').val(),
-                                gender: $('input[name="gender"]:checked').val(),
-                                address: $('#' + nameId + '-address').val(),
-                                position: $('#' + nameId + '-position').val(),
-                                startWork: $('#' + nameId + '-startWork').val(),
-                                image: $('#' + nameId + '-image').val()
-                            },
-                            success: function(response){
-                                for(var key in response.errors){
-                                    var pesanErrors = response.errors[key][0]
+                    $('#formTambahKaryawan').submit(function(e) {
+                            e.preventDefault();
+                            var formData = new FormData(this);
+                            var  url = '/data/dataKaryawan';
+                            var type = 'POST';
+                            var nameId = 'td';
+                            $.ajax({
+                                url: url,
+                                type: type,
+                                data: formData,
+                                contentType: false,
+                                processData: false,
+                                success: function(response) {
+                                console.log(`hasilnya adalah ${response.hasil}`);
+                                console.log(response.errors);
+                                for (var key in response.errors) {
+                                    var pesanErrors = response.errors[key][0];
                                     $(`#${nameId}-${key}-error`).text(pesanErrors);
                                 }
-                                console.log(response.errors);
                                 if (response.success) {
-                                    $('#tableDataKaryawan').DataTable().ajax.reload()
-                                    if (type === 'POST') {
-                                            $('#modaltdKaryawan').modal('hide')
-                                        } else {
-                                            $('#modaledKaryawan').modal('hide')
-                                        }
+                                    $('#modaltdKaryawan').modal('hide')
+                                    $('#tableDataKaryawan').DataTable().ajax.reload();
                                 }
                             },
-                            error:function(xhr, status, error){
-                          console.log(xhr.responseText);
-                      }
-                        })
-                  }
-            </script>
+                                error: function(xhr, status, error) {
+                                console.error(xhr.responseText);
+                                }
+                            });
+                            });
 
+                            $('#editFormKaryawan').submit(function(e){
+                                e.preventDefault();
+                                const formData = new FormData(this);
+                                const id = $('#id-kar').data('karyawan-id');
+                                $.ajax({
+                                    url:'/update-karyawan/'+id,
+                                    method:'POST',
+                                    data: formData,
+                                    cache:false,
+                                    contentType:false,
+                                    processData:false,
+                                    dataType:'json',
+                                    success: function(response){
+                                        if (response.errors) {
+                                            for (var key in response.errors) {
+                                                    var pesanErrors = response.errors[key][0];
+                                                    $(`#ed-${key}-error`).text(pesanErrors);
+                                                }
+                                        }
+                                        if(response.success){
+                                            $('#modaledKaryawan').modal('hide');
+                                            $('#tableDataKaryawan').DataTable().ajax.reload();
+                                        }
+                                    },
+                                    error:function(xhr, status,error){
+                                        console.log(xhr.responseText);
+                                    }
+                                })
+
+                            });
+
+                })
+
+                </script>
             @endsection

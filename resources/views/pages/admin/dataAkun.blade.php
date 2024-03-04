@@ -55,7 +55,7 @@
                               name:'username'
                               },
                               {
-                              data:'name',
+                              data:'employee.name',
                               name:'nama'
                               },
                               {
@@ -74,6 +74,22 @@
 
                   $('#mtd').click(function(){
                       $('#modalId').modal('show')
+                      $.ajax({
+                        url:'/getDataEm',
+                        type:'GET', 
+                        success:function(response){
+                            console.log(response.hasil);
+                            var select = $('#td-employeeID')
+                            select.empty()
+                            $.each(response.hasil ,function(index ,value){
+                                select.append($('<option></option>').attr('value', value.employeeID).text(value.name))
+                            })
+                        },
+                          error:function(xhr, status, error){
+                          console.log(xhr.responseText);
+                      }
+
+                      })
                   })
                   // simpan data akun
                   $('.tda').click(function(){
@@ -84,6 +100,9 @@
                       var inputId = $(this).attr('id');
                       $('#' + inputId + '-error').text('');
                   });
+
+
+
                   $('body').on('click', '.btn-eda' ,function(e){
                     var id = $(this).data('id')
                     $.ajax(
@@ -91,13 +110,23 @@
                         url:'/data/dataAkun/'+ id +'/edit',
                         type:'GET',
                         success: function(response) {
+                            console.log('bawah ini');
+                            console.log(response.hasil);
                             $('#modalIdEdit').modal('show');
                             $('#ed-username').val(response.hasil.username);
-                            $('#ed-nama').val(response.hasil.name);
+                            $('#ed-employeeID').val(response.hasil.employee.name);
                             $('#ed-role').val(response.hasil.role);
-                          console.log(response.hasil.name);
+
+
+                            var select = $('#ed-employeeID')
+                            select.empty()
+                            $.each(response.dataEm ,function(index ,value){
+                                select.append($('<option></option>').attr('value', value.employeeID).text(value.name))
+                            })
+                            $('.employeeID2 option[value="' + response.hasil.employee.employeeID + '"]').prop('selected', true);
+
                           $('.editdata').click(function(){
-                      save(id)
+                                save(id)
                           });
 
                         }
@@ -116,7 +145,6 @@
                         url:'/data/dataAkun/'+ id +'/edit',
                         type:'GET',
                         success: function(response) {
-
                           $('.hapusdataAkun').click(function() {
                               hapus(response.hasil.id)
                           })
@@ -163,7 +191,7 @@
                           url: var_url,
                           type:var_type,
                           data:{
-                              nama : $(`#${nameId}-nama`).val(),
+                              employeeID : $(`#${nameId}-employeeID`).val(),
                               username : $(`#${nameId}-username`).val(),
                               password : $(`#${nameId}-password`).val(),
                               role : $(`#${nameId}-role`).val()
@@ -181,6 +209,7 @@
                                       $('.it-data, .slt-data').val('')
                                       $('#tableDataAKun').DataTable().ajax.reload();
                                         if (var_type === 'POST') {
+                                            console.log(response.hasildata);
                                             $('#modalId').modal('hide')
                                             pushNotify('tambahkan')
                                         } else {
