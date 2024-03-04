@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator ;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -41,6 +42,7 @@ class karyawanController extends Controller
      */
     public function store(Request $request)
     {
+
         $validate = Validator::make($request->all(), [
             'name' => 'required|unique:employees,name',
             'position' => 'required',
@@ -48,6 +50,7 @@ class karyawanController extends Controller
             'phoneNumber' => 'required',
             'address' => 'required',
             'startWork' => 'required',
+            'image'=>'required'
         ], [
             'name.required' => 'belum diisi!',
             'name.unique' => 'nama sudah tersedia!',
@@ -56,11 +59,16 @@ class karyawanController extends Controller
             'phoneNumber.required' => 'belum diisi!',
             'address.required' => 'belum diisi!',
             'startWork.required' => 'belum diisi!',
+            'image.required'=>'belum diisi!'
 
         ]);
             if ($validate->fails()) {
                 return response()->json(['errors'=> $validate->errors()]);
             }else {
+                $image = $request->file('image');
+                $filename = date('Y-m-d').'_'.$image->getClientOriginalName();
+                $path = 'image-products/'.$filename;
+                Storage::disk('public')->put($path, file_get_contents($image));
                 $data = [
                     'name' => $request->name,
                     'position' => $request->position,
@@ -69,8 +77,7 @@ class karyawanController extends Controller
                     'address' => $request->address,
                     'startWork' => $request->startWork,
                     'gender' => $request->gender,
-                    'image'=>'kosong'
-
+                    'image'=>$filename
                 ];
 
                 $u = $request->name;
@@ -91,7 +98,7 @@ class karyawanController extends Controller
     public function show(string $id)
     {
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -106,6 +113,7 @@ class karyawanController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'position' => 'required',
@@ -122,20 +130,33 @@ class karyawanController extends Controller
             'startWork.required' => 'belum diisi!',
 
         ]);
+        $filename = '';
+        $img = Employee::find($id);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = date('Y-m-d').'_'.$file->getClientOriginalName();
+            $path = 'image-products/'.$filename;
+            Storage::disk('public')->put($path, file_get_contents($file));
+
+        }else{
+            $imgData = Employee::where('employeeID', $id)->first();
+            $filename = $imgData->image;
+        }
+        $data = [
+            'name' => $request->name,
+            'position' => $request->position,
+            'birthdate' => $request->birthdate,
+            'phoneNumber' => $request->phoneNumber,
+            'address' => $request->address,
+            'startWork' => $request->startWork,
+            'gender' => $request->gender,
+            'image'=>$filename
+        ];
             if ($validate->fails()) {
+                // return response()->json(['hasil'=>'haloooooooo']);
+                return response()->json(['hasil'=>$data]);
                 return response()->json(['errors'=> $validate->errors()]);
             }else {
-                $data = [
-                    'name' => $request->name,
-                    'position' => $request->position,
-                    'birthdate' => $request->birthdate,
-                    'phoneNumber' => $request->phoneNumber,
-                    'address' => $request->address,
-                    'startWork' => $request->startWork,
-                    'gender' => $request->gender,
-                    'image'=>'kosong'
-                ];
-
                     Employee::where('employeeID', $id)->update($data);
                     return response()->json(['success'=> "Data berhasil ditambahkan"]);
 

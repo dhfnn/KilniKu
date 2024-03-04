@@ -21,4 +21,9 @@ class Employee extends Model
         'gender',
         'image'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(Users::class, 'employeeID');
+    }
 }

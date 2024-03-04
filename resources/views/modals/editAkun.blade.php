@@ -32,9 +32,11 @@
                     <div class="col mt-2">
                         <div class="col d-flex justify-content-between">
                             <span class="st-data">Nama</span>
-                            <span class="text-error" ed-id="nama-error"></span>
+                            <span class="text-error" id="td-employeeID-error"></span>
                         </div>
-                        <input type="text" class="it-data w-100 px-2" name="nama" id="ed-nama">
+                        <select name="employeeID"  class="slt-data employeeID2" id="ed-employeeID">
+
+                        </select>
                     </div>
                     <div class="col mt-2">
 

@@ -8,7 +8,8 @@ use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\pelangganController;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\supplierController;
-use App\Http\Middleware\roleAkses; // Ubah "app" menjadi "App"
+use App\Http\Controllers\transController;
+use App\Http\Middleware\roleAkses;
 
 use Illuminate\Support\Facades\Route;
 
@@ -22,12 +23,13 @@ Route::get('/home', function(){
 });
 
 Route::middleware(['auth'])->group(function(){
-    Route::middleware(['roleAkses:admin'])->group(function(){ // Ubah "route::middleware" menjadi "Route::middleware"
+    Route::middleware(['roleAkses:admin'])->group(function(){
         Route::get('/admin/dashboard', [DashPage::class, 'admin']);
 
         Route::resource('data/dataAkun', akunController::class);
         Route::controller(akunController::class)->group(function (){
             route::get('/getDataAkun', 'getData');
+            route::get('/getDataEm', 'getDataEm');
             route::get('/data/dataAkun/{id}/edit', 'edit');
             route::get('/data/dataAkun/{id}', 'update');
             route::delete('/data/dataAkun/{id}', 'destroy');
@@ -47,17 +49,23 @@ Route::middleware(['auth'])->group(function(){
             route::get('/data/dataSupplier/{id}/edit', 'edit');
             route::get('/data/dataSupplier/{id}', 'update');
         });
+        Route::post('/update-karyawan/{id}', [karyawanController::class, 'update'])->name('update.karyawan');
         Route::resource('/data/dataKaryawan', karyawanController::class);
         route::controller(karyawanController::class)->group(function(){
             Route::get('/getDatakaryawan', 'getData');
-            // route::get('/data/dataKaryawan/{id}/edit', 'edit');
 
         });
+        Route::post('/update-produk/{id}', [produkController::class, 'update']);
         Route::resource('/produk', produkController::class);
         route::controller(produkController::class)->group(function(){
             Route::get('/getDataProduk', 'getData');
             Route::get('/getsupplier', 'getsupplier');
             // Route::get('/produk/{id}', 'update');
+
+        });
+        Route::resource('/transaksi', transController::class);
+        route::controller(produkController::class)->group(function(){
+
 
         });
 

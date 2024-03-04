@@ -13,9 +13,18 @@ class Users extends Model
     public $timestamps = false; 
     protected $fillable = [
         'username',
-        'name',
+        'employeeID',
         'password',
         'role'
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'userID');
+    }
+    public function employee(){
+        return $this->belongsTo(Employee::class, 'employeeID');
+    }
+
 }
 

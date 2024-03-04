@@ -18,4 +18,8 @@ class Pelanggan extends Model
         'address',
         'phoneNumber',
     ];
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'customerID');
+    }
 }
