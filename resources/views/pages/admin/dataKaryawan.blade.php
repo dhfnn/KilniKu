@@ -185,13 +185,14 @@
                                     $(`#${nameId}-${key}-error`).text(pesanErrors);
                                 }
                                 console.log(response.errors);
-                                console.log(response.success);
-                                $('#tableDataKaryawan').DataTable().ajax.reload()
-                                if (type === 'POST') {
-                                        $('#modaltdKaryawan').modal('hide')
-                                    } else {
-                                        $('#modaledKaryawan').modal('hide')
-                                    }
+                                if (response.success) {
+                                    $('#tableDataKaryawan').DataTable().ajax.reload()
+                                    if (type === 'POST') {
+                                            $('#modaltdKaryawan').modal('hide')
+                                        } else {
+                                            $('#modaledKaryawan').modal('hide')
+                                        }
+                                }
                             },
                             error:function(xhr, status, error){
                           console.log(xhr.responseText);

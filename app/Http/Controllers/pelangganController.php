@@ -21,7 +21,6 @@ class pelangganController extends Controller
          return view('component.btnTableP')->with('data', $data);
         })
          ->make(true);
-
      }
     public function index()
     {
@@ -41,16 +40,18 @@ class pelangganController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = Validator::make($request->all(),[
+        $validate = Validator::make($request->all(), [
             'customerName' => 'required|unique:customers',
-            'phoneNumber'=>'required',
-            'address'=>'required'
-        ],[
-            'customerName.required'=>' Belum diisi!',
-            'customerName.unique'=>' Nama sudah tersedia!',
-            'phoneNumber.required'=>'Belum diisi!',
-            'address.required'=>'Belum diisi!',
+            'phoneNumber' => 'required|min:11',
+            'address' => 'required'
+        ], [
+            'customerName.required' => 'Belum diisi!',
+            'customerName.unique' => 'Sudah tersedia!',
+            'phoneNumber.required' => 'Belum diisi!',
+            'phoneNumber.min' => 'Min-11!',
+            'address.required' => 'Belum diisi!',
         ]);
+
         if ($validate->fails()) {
             return response()->json(['errors' => $validate->errors()]);
         }else {
@@ -92,15 +93,15 @@ class pelangganController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validate = Validator::make($request->all(),[
+        $validate = Validator::make($request->all(), [
             'customerName' => 'required',
-            'phoneNumber'=>'required',
-            'address'=>'required'
-        ],[
-            'customerName.required'=>' Belum diisi!',
-            // 'customerName.unique'=>' Nama sudah tersedia!',
-            'phoneNumber.required'=>'Belum diisi!',
-            'address.required'=>'Belum diisi!',
+            'phoneNumber' => 'required|min:11',
+            'address' => 'required'
+        ], [
+            'customerName.required' => 'Belum diisi!',
+            'phoneNumber.required' => 'Belum diisi!',
+            'phoneNumber.min' => 'Min-11!',
+            'address.required' => 'Belum diisi!',
         ]);
         if ($validate->fails()) {
             return response()->json(['errors' => $validate->errors()]);
@@ -124,7 +125,7 @@ class pelangganController extends Controller
      */
     public function destroy(string $id)
     {
-        Pelanggan::destroy($id);    
+        Pelanggan::destroy($id);
         return response()->json(['succses'=> 'berhasil dihapus']);
     }
 }
