@@ -63,7 +63,79 @@ h6 {
     color: white;
     background: var(--gradient-primary);
 }
+.con-kasir{
+    background-color: var(--color-greyB);
+    .con-akas{
+        border-radius: 7px;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.082);
 
+    }
+}
+
+.t-edit,
+.t-hapus,
+.t-lihat {
+    border: none;
+    font-size: var(--fs-s);
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+.t-edit {
+    color: var(--color-greyM);
+
+    background-color: var(--color-greyB);
+}
+.t-hapus {
+    color: var(--color-greyS);
+
+    background-color: rgba(255, 0, 0, 0.568);
+}
+.t-lihat {
+    background-color: transparent;
+    color: var(--color-blue);
+    border: 1px var(--color-blue) solid;
+}
+
+span.st-data {
+    margin-left: 4px;
+    color: var(--color-greyM);
+    font-family: var(--font-d);
+    font-size: 12px !important;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+input.it-data {
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.158);
+    height: 32px;
+}
+input.it-data:focus {
+    box-shadow: 0px 0px 5px 5px rgba(40, 118, 219, 0.031);
+    border: none;
+    outline: 1px solid var(--color-blueS);
+    transition: 0.3s;
+}
+select.slt-data {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.158)!important;
+    height: 32px;
+}
+
+select.slt-data:focus {
+    box-shadow: 0px 0px 5px 5px rgba(40, 118, 219, 0.031);
+    border: none;
+    outline: 1px solid var(--color-blueS);
+    transition: 0.3s;
+}
+textarea.tt-data {
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.158);
+    height: 100px;
+    width: 100%;
+}
 // burger menu
 
 #burger-menu {
@@ -904,71 +976,6 @@ section.container-main {
 
                     }
 
-                    .t-edit,
-                    .t-hapus,
-                    .t-lihat {
-                        border: none;
-                        font-size: var(--fs-s);
-                        padding: 2px 10px;
-                        border-radius: 5px;
-                        font-weight: 500;
-                    }
-                    .t-edit {
-                        color: var(--color-greyM);
-
-                        background-color: var(--color-greyB);
-                    }
-                    .t-hapus {
-                        color: var(--color-greyS);
-
-                        background-color: rgba(255, 0, 0, 0.568);
-                    }
-                    .t-lihat {
-                        background-color: transparent;
-                        color: var(--color-blue);
-                        border: 1px var(--color-blue) solid;
-                    }
-
-                    span.st-data {
-                        margin-left: 4px;
-                        color: var(--color-greyM);
-                        font-family: var(--font-d);
-                        font-size: 12px !important;
-                        font-style: normal;
-                        font-weight: 500;
-                        line-height: normal;
-                    }
-
-                    input.it-data {
-                        border-radius: 6px;
-                        border: 1px solid rgba(0, 0, 0, 0.158);
-                        height: 32px;
-                    }
-                    input.it-data:focus {
-                        box-shadow: 0px 0px 5px 5px rgba(40, 118, 219, 0.031);
-                        border: none;
-                        outline: 1px solid var(--color-blueS);
-                        transition: 0.3s;
-                    }
-                    select.slt-data {
-                        width: 100%;
-                        border-radius: 6px;
-                        border: 1px solid rgba(0, 0, 0, 0.158)!important;
-                        height: 32px;
-                    }
-
-                    select.slt-data:focus {
-                        box-shadow: 0px 0px 5px 5px rgba(40, 118, 219, 0.031);
-                        border: none;
-                        outline: 1px solid var(--color-blueS);
-                        transition: 0.3s;
-                    }
-                    textarea.tt-data {
-                        border-radius: 6px;
-                        border: 1px solid rgba(0, 0, 0, 0.158);
-                        height: 100px;
-                        width: 100%;
-                    }
                 }
             }
         }

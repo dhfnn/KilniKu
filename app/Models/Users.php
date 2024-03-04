@@ -17,5 +17,10 @@ class Users extends Model
         'password',
         'role'
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'userID');
+    }
 }
 

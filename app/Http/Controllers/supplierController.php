@@ -37,14 +37,16 @@ class supplierController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = Validator::make($request->all(),[
+        $validate = Validator::make($request->all(), [
             'supplierName' => 'required|unique:supplier',
-            'phoneNumber'=>'required',
-        ],[
-            'supplierName.required'=>' Belum diisi!',
-            'supplierName.unique'=>' Nama sudah tersedia!',
-            'phoneNumber.required'=>'Belum diisi!',
+            'phoneNumber' => 'required|min:11', // Menambahkan aturan min:11
+        ], [
+            'supplierName.required' => 'belum diisi!',
+            'supplierName.unique' => 'sudah tersedia!',
+            'phoneNumber.required' => 'belum diisi!',
+            'phoneNumber.min' => 'minimal 11 ',
         ]);
+
         if ($validate->fails()) {
             return response()->json(['errors' => $validate->errors()]);
         }else {

@@ -8,6 +8,7 @@ use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\pelangganController;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\supplierController;
+use App\Http\Controllers\transController;
 use App\Http\Middleware\roleAkses; // Ubah "app" menjadi "App"
 
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,11 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/getDataProduk', 'getData');
             Route::get('/getsupplier', 'getsupplier');
             // Route::get('/produk/{id}', 'update');
+
+        });
+        Route::resource('/transaksi', transController::class);
+        route::controller(produkController::class)->group(function(){
+
 
         });
 

@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pelanggan extends Model
+class Checkup extends Model
 {
     use HasFactory;
-
-    protected $table =  'customers';
-    protected $primaryKey = 'customerID';
+    protected $primaryKey = 'checkupID';
     public $timestamps = false;
 
     protected $fillable = [
-        'customerName',
-        'address',
-        'phoneNumber',
+        'checkupName', 'price'
     ];
+
+
+
     public function transactions()
     {
-        return $this->hasMany(Transaction::class, 'customerID');
+        return $this->hasMany(Transaction::class, 'checkupID');
     }
 }
