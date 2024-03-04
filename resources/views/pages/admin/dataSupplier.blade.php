@@ -111,16 +111,13 @@
                     url:url,
                     type:type,
                     data:{
-                        name: $('#td-name').val(),
-                        supplierName: $('#td-supplierName').val(),
-                        tanggalLahir: $('#td-tanggalLahir').val(),
-                        gender: $('input[name="gender"]:checked').val(),
-                        address: $('#td-address').val(),
-                        position: $('#td-position').val(),
-                        startWork: $('#td-startWork').val()
+                        name: $(`#${nameId}-name`).val(),
+                        supplierName: $(`#${nameId}-supplierName`).val(),
+                        phoneNumber: $(`#${nameId}-phoneNumber`).val()
                     },
                     success: function(response) {
                         console.log(response.errors);
+                        // console.log(response.hasil);
                         for(var key in response.errors){
                             var pesanError =response.errors[key][0];
                             $(`#${nameId}-${key}-error`).text(pesanError);

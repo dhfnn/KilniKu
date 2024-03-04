@@ -48,6 +48,7 @@ class karyawanController extends Controller
             'phoneNumber' => 'required',
             'address' => 'required',
             'startWork' => 'required',
+            
         ], [
             'name.required' => 'belum diisi!',
             'name.unique' => 'nama sudah tersedia!',
@@ -91,7 +92,7 @@ class karyawanController extends Controller
     public function show(string $id)
     {
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */

@@ -8,7 +8,7 @@
             <span style="font-size: 16px;">Apakah anda yakin akan menghapus data??</span>
         </div>
         <div class="col p-2 px-3 d-flex justify-content-center">
-          <button type="button" class="btn-hda px-3 py-1 hapusdataAkun">Hapus</button>
+          <button type="button" class="btn-hda t-hapus px-3 py-1 hapusdataAkun">Hapus</button>
         </div>
       </div>
     </div>

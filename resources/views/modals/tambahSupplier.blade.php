@@ -19,9 +19,9 @@
                     <div class="col">
                         <div class="col d-flex justify-content-between ">
                             <span class="st-data">Telepon</span>
-                            <span type="number" class="text-error" id="td-phoneNumber-error"></span>
+                            <span class="text-error" id="td-phoneNumber-error"></span>
                         </div>
-                        <input type="text" class="it-data w-100 px-2" name="phoneNumber" id="td-phoneNumber">
+                        <input type="number" class="it-data w-100 px-2" name="phoneNumber" id="td-phoneNumber">
                     </div>
                 </div>
 
