@@ -33,7 +33,7 @@ class Login extends Controller
             if (Auth::user()->role == 'admin') {
                 return Redirect('/admin/dashboard');
             } elseif(Auth::user()->role == 'petugas') {
-                return redirect('/petugas');
+                return redirect('/petugas/produk');
             }
 
 

@@ -24,11 +24,11 @@
                   <th class="text-center">ACTION</th>
               </tr>
           </thead>
-
         </table>
         @include('modals.tambahPelanggan')
         @include('modals.editPelanggan')
             </div>
+</div>
             <script>
 
                 $(document).ready(function() {

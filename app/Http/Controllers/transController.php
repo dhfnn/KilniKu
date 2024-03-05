@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class transController extends Controller
 {
@@ -67,10 +68,19 @@ return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','chec
 
 }
 
+    public function getDataRiwayat(){
+        $data = Transaction::with('user.employee', 'checkup', 'subtransactions','customer')->get();
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->addColumn('ACTION', function($data){
+         return view('component.btnTableR')->with('data', $data);
+        })
+        ->make(true);
+    }
 
-    /**
-     * Display the specified resource.
-     */
+    public function riwayat(){
+        return view('pages.admin.riwayat');
+    }
     public function show(string $id)
     {
         //

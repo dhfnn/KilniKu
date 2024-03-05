@@ -60,11 +60,12 @@ Route::middleware(['auth'])->group(function(){
         route::controller(produkController::class)->group(function(){
             Route::get('/getDataProdukAdmin', 'getData');
             Route::get('/getsupplierAdmin', 'getsupplier');
-            // Route::get('/produk/{id}', 'update');
 
         });
         Route::resource('admin/transaksi', transController::class);
-        route::controller(produkController::class)->group(function(){
+        route::controller(transController::class)->group(function(){
+            Route::get('/admin/riwayat','riwayat');
+            Route::get('/getDataRiwayat','getDataRiwayat');
 
 
         });

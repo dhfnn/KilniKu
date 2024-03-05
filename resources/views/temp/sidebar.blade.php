@@ -124,7 +124,9 @@
                 <div class="submenu-item">
                     <span class="{{ Request::is('/admin/transaksi') ? 'text-act' : '' }}"><a href="{{ Request::is('/admin/transaksi') ? '#' :  '/admin/transaksi'  }}">Transaksi</a></span>
                 </div>
-                <div class="submenu-item">Riwayat</div>
+                <div class="submenu-item">
+                    <span class="{{ Request::is('/admin/riwayat') ? 'text-act' : '' }}"><a href="{{ Request::is('/admin/riwayat') ? '#' :  '/admin/riwayat'  }}">Riwayat</a></span>
+                </div>
               </div>
             </div>
 
