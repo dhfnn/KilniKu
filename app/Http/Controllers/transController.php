@@ -48,20 +48,22 @@ return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','chec
                 'checkupID' => $request->checkupID
             ];
             $trans = Transaction::create($data);
-            $transID= $trans->transactionID;
+            $transID = $trans->transactionID;
             $quantity = $request->jumlah;
             $productId = $request->productId;
-            for ($i = 0; $i < count($jumlah); $i++) {
+            for ($i = 0; $i < count($quantity); $i++) {
                 $data2 = [
                     'transID' => $transID,
-                    'jumlah' => $jumlah[$i],
-                    'userID' => $userId
+                    'productID' => $productId[$i],
+                    'quantity' => $quantity[$i],
+                    'subTotal' => $request->subTotal
                 ];
                 Subtransaction::create($data2);
             }
 
 
-                return response()->json(['hasil' => $data, 'success'=>' Data Berhasil Ditambahkan', 'allData'=>$request->all(), 'id'=>$transID]);
+
+                return response()->json(['hasil' => $data, 'success'=>' Data Berhasil Ditambahkan', 'allData'=>$request->all(), 'id'=>$transID, 'dataA'=>$data2]);
 
 }
 

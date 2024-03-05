@@ -58,8 +58,8 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/update-produk/{id}', [produkController::class, 'update']);
         Route::resource('/produk', produkController::class);
         route::controller(produkController::class)->group(function(){
-            Route::get('/getDataProduk', 'getData');
-            Route::get('/getsupplier', 'getsupplier');
+            Route::get('/getDataProdukAdmin', 'getData');
+            Route::get('/getsupplierAdmin', 'getsupplier');
             // Route::get('/produk/{id}', 'update');
 
         });

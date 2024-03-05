@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome-pro-6.5.1-web/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('simple-notify\dist\simple-notify.css') }}">
-    <link rel="stylesheet" href="{{ asset('sweetalert2/src/sweetalert2.scss') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('sweetalert2/src/sweetalert2.scss') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('sweetalert2/dist/sweetalert2.css') }}">
     <script src="{{ asset('sweetalert2/dist/sweetalert2.js') }}"></script>
   <script src="{{ asset('DataTables/jQuery-3.7.0/jquery-3.7.0.js') }}"></script>
   <script src="{{ asset('DataTables/datatables.js') }}"></script>
@@ -22,6 +23,15 @@
 
   </head>
   <style>
+
+
+.fixed_header tbody{
+  width: 100%;
+  overflow: auto;
+  height: 100px;
+}
+
+
     .select2-container{
 
         z-index: 1000000;

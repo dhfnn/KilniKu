@@ -6,7 +6,7 @@
         @csrf
         <div class="row justify-content-center">
             <div class="col">
-                <div class="bg-white p-1 mb-3 ">
+                <div class="bg-white p-1 mb-3 " style="border-radius:7px;">
                     <div class="col">
                         <div class="p-2 ">
                             <div class="row g-3">
@@ -67,15 +67,16 @@
                 <div class="">
                     <span class="t-jta">Daftar Obat</span>
                 </div>
-                <div class="card-body bg-white " >
-                    <div class="table-responsive pb-2">
+                <div class="card-body bg-white px-3 " style="border-radius:7px; " >
+                    <div class="table-responsive pb-2 fixed_header">
                         <table id="example" class="table-standart" style="width:100%">
-                            <thead >
+                            <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Pasien</th>
                                     <th>Obat</th>
                                     <th>Jumlah</th>
+                                    <th>Subtotal</th>
                                     <th>Harga</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -183,7 +184,6 @@ function showError(message) {
         text: message
     });
 }
-
 function barisBaru(pembeli, product, productId, stockProduct) {
     let barisBaru = tableDatatrans.insertRow();
     barisBaru.innerHTML = `
@@ -192,15 +192,33 @@ function barisBaru(pembeli, product, productId, stockProduct) {
         <td><input type="hidden" class="form-control productId" name="productId[]" value="${productId}">${product.options[product.selectedIndex].getAttribute('data-name')}</td>
         <td><input type="number" name="jumlah[]" class="form-control inputJumlah" value="1" min="1" max="${stockProduct}" /></td>
         <td>Rp${product.options[product.selectedIndex].getAttribute('data-Harga')}</td>
+        <td><span class="subtotal"></span> <input type="hidden" class="subtotalInput" name="subTotal"> </td>
         <td class="text-center"><button class="text-white hapusDataObat"> <i class="fa-regular fa-square-minus text-danger"></i> </button></td>
     `;
+
     barisBaru.setAttribute('data-productID', productId);
-    barisBaru.querySelector('.inputJumlah').addEventListener('input', updateHargaTotal);
-    barisBaru.querySelector('.hapusDataObat').addEventListener('click', function() {
-        tableDatatrans.removeChild(barisBaru);
-        updateHargaTotal();
-        hideBtnBayar();
-    });
+barisBaru.querySelector('.inputJumlah').addEventListener('input', function() {
+    updateSubtotal(barisBaru);
+    updateHargaTotal();
+});
+barisBaru.querySelector('.hapusDataObat').addEventListener('click', function() {
+    barisBaru.style.display = 'none';
+    updateHargaTotal();
+    hideBtnBayar();
+});
+
+
+    updateSubtotal(barisBaru);
+    hideBtnBayar();
+}
+function updateSubtotal(row) {
+    let priceString = row.getElementsByTagName('td')[4].textContent;
+    let price = parseFloat(priceString.replace('Rp', '').replace(',', ''));
+    let jumlah = parseInt(row.getElementsByTagName('td')[3].getElementsByTagName('input')[0].value);
+    let subtotal = price * jumlah;
+
+    row.querySelector('.subtotal').textContent = subtotal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+    row.querySelector('.subtotalInput').value = subtotal;
 }
 
 function caraProductId(productId) {
@@ -269,11 +287,14 @@ BayarTombol.addEventListener('click', function(event) {
     let nilai = parseFloat(a.value);
 
     if (isNaN(nilai)) {
+        showError('Masukan Uang Bayar !');
+
         console.log('uang bayar kosong')
         console.log(nilai);
         console.log(nilaib);
     } else if (nilai < nilaib) {
-        console.log('kuranggg');
+        showError('Uang Kurang !');
+
     } else {
         console.log('pass');
     let form = document.getElementById('TambahTrans');
@@ -288,32 +309,30 @@ BayarTombol.addEventListener('click', function(event) {
         success: function(response) {
             console.log(response);
             console.log(response.allData);
+            console.log(response.dataA);
             console.log(response.id);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
                 text: 'Berhasil !!',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
-                closeOnConfirm: false,
+                // showCancelButton: true,
+                // confirmButtonText: 'Yes',
+                // cancelButtonText: 'No',
+                closeOnConfirm: true,
                 closeOnCancel: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    console.log('behasil');
-                } else {
-                    console.log('gagal');
-                }
-            });
+            })
+            // .then((result) => {
+            //     if (result.isConfirmed) {
+            //         console.log('behasil');
+            //     } else {
+            //         console.log('gagal');
+            //     }
+            // });
         },
-        error: function(xhr, textStatus, errorThrown) {
-            console.error('Error:', errorThrown);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Gagal'
-            });
-        }
+        error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                }
     });
     }
 

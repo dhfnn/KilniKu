@@ -85,7 +85,7 @@ $('#searchInput').on('input', function() {
 
     function selectForm() {
         $.ajax({
-            url:'/getsupplier',
+            url:'/getsupplierAdmin',
             type:'GET',
             dataType:'json',
             success: function(response){
@@ -137,7 +137,7 @@ selectForm();
         })
         // BAGIAN TAMPILKAN DATA
         $.ajax({
-            url:'/getDataProduk',
+            url:'/getDataProdukAdmin',
             type:'GET',
             success:function(response){
                 response.forEach(function(products) {
