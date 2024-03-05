@@ -45,7 +45,7 @@ return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','chec
                 'transactionDate' => $todayDate,
                 'customerID' => $request->customerID,
                 'userID' => $userId,
-                'totalPrice' => $request->totalPrice,
+                'totalPrice' => $request->hargaKeseluruhan,
                 'checkupID' => $request->checkupID
             ];
             $trans = Transaction::create($data);

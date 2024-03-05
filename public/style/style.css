@@ -142,6 +142,16 @@ span.st-data {
   line-height: normal;
 }
 
+span.m-data {
+  margin-left: 4px;
+  color: black;
+  font-family: var(--font-d);
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 input.it-data {
   border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.158);

@@ -12,8 +12,9 @@
               <tr>
                   <th class="text-center">NO</th>
                   <th>TANGGAL</th>
-                  <th>NAMA KASIR</th>
+                  <th>KASIR</th>
                   <th>NAMA PELANGGAN</th>
+                  <th>PEMERIKSAAN</th>
                   <th>TOTAL HARGA</th>
                 <th>AKSI</th>
               </tr>
@@ -38,19 +39,33 @@
                             },
                             {
                                 data:'transactionDate',
-                                name:'transactionDate'
+                                name:'transactionDate',
+                              className: 'text-center'
+
                             },
                             {
                                 data:'customer.customerName',
-                                name:'customerName'
+                                name:'customerName',
+                              className: 'text-center'
+
                             },
                             {
                                 data:'user.employee.name',
                                 name:'name',
+                              className: 'text-center'
+
+                            },
+                            {
+                                data:'checkup.checkupName',
+                                name:'name',
+                              className: 'text-center'
+
                             },
                             {
                                 data:'totalPrice',
                                 name:'totalPrice',
+                              className: 'text-center'
+
                             },
                             {
                                 data:'ACTION',

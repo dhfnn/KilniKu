@@ -13,7 +13,7 @@
                                 <div class="col">
 
                                     <div class="col">
-                                        <label class="form-label">Pasien</label>
+                                        <span class="m-data">Pasien</span>
                                         <div class="input-group">
                                             <select id="dataSelectPasien" class="slt-data" name="customerID">
                                                 <option selected disabled>Pilih Pasien</option>
@@ -24,19 +24,19 @@
                                         </div>
                                     </div>
                                     <div class="col mt-2">
-                                        <label class="form-label">Pemeriksaan</label>
+                                        <span class="m-data">Pemeriksaan</span>
                                         <div class="input-group">
                                             <select id="dataSelectPeriksa" class="slt-data" name="checkupID">
                                                 <option selected disabled>Pilih Pemeriksaan</option>
                                                 @foreach ($checkup as $item)
-                                                <option value="{{ $item->checkupID }}">{{ $item->checkupName }}</option>
+                                                <option value="{{ $item->checkupID }}" data-harga="{{ $item->price }}">{{ $item->checkupName }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <label class="form-label">Obat</label>
+                                    <span class="m-data">Obat</span>
                                     <div class="input-group">
                                         <select id="dataSelectProduct" class="slt-data">
                                             <option selected disabled>Pilih Obat</option>
@@ -52,13 +52,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="col d-flex justify-content-end">
-                                        <button type="button" id="TambahObat" class="px-2 py-1 btn-add text-white fw-bold ">Tambahkan Obat</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" id="TambahObat" class="px-2 py-1 btn-add text-white fw-bold ">Tambahkan Obat</button>
                     </div>
                 </div>
             </div>
@@ -87,22 +87,43 @@
                         </table>
                         <div class="col px-0 " style="border-top:1px #efe9e9 solid;">
                             <div class="row px-0 mx-0 mt-2 d-flex">
+
                                 <div class="col">
-                                    <input type="hidden" name="totalPrice" id="totalPriceInput" value="0"><span class="totalHarga fw-bold">Total Harga : </span><span id="totalPrice">0</span>
+                                    <span class="hargaPemeriksaan fw-bold"> Pemeriksaan: </span>
+                                    <span id="checkupPrice">0</span>
+                                    <input type="hidden" id="checkupPriceInput" name="checkupPriceInput">
+
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="it-data w-100 px-2" name="uangBayar" id="uangBayar">
+                                    <input type="hidden" name="totalPrice" id="totalPriceInput" value="0"><span class="totalHarga fw-bold">Harga Obat : </span><span id="totalPrice">0</span>
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="it-data w-100 px-2" name="uangKembalian" id="uangKembalian" readonly>
+                                    <span class="Kessluruhan fw-bold">Total Harga: </span><span id="allPrice">0</span>
+                                    <input type="hidden" name="hargaKeseluruhan" id="hargaKeseluruhanInput">
+
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="col d-flex  justify-content-end mt-2 me-1">
-                    <button type="submit" id="BayarTombol" class="p-1 px-3 fw-bold text-white btn-add ">Bayar</button>
+                <div class="col px-0 " style="border-top:1px #efe9e9 solid;">
+                    <div class="row px-0 mx-0 mt-2 d-flex">
+                        <div class="col">
+                            <span class="m-data">Tunai</span>
+                            <input type="text" class="it-data w-100 px-2" name="uangBayar" id="uangBayar">
+                        </div>
+                        <div class="col">
+                            <span class="m-data">Kembalian</span>
+
+                            <input type="text" class="it-data w-100 px-2" name="uangKembalian" id="uangKembalian" readonly>
+                        </div>
+                        <div class="col d-flex  justify-content-start align-items-end  mt-2 me-1">
+                           <div class="col">
+                            <button type="submit" id="BayarTombol" class="p-1 px-3 fw-bold text-white btn-add ">Bayar</button>
+                           </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -211,6 +232,7 @@ barisBaru.querySelector('.hapusDataObat').addEventListener('click', function() {
     updateSubtotal(barisBaru);
     hideBtnBayar();
 }
+
 function updateSubtotal(row) {
     let priceString = row.getElementsByTagName('td')[4].textContent;
     let price = parseFloat(priceString.replace('Rp', '').replace(',', ''));
@@ -232,32 +254,56 @@ function caraProductId(productId) {
     return null;
 }
 
-function updateHargaTotal() {
-    let totalPrice = 0;
-    let rows = tableDatatrans.getElementsByTagName('tr');
+// Ambil elemen select untuk pemeriksaan
+const selectPeriksa = document.getElementById('dataSelectPeriksa');
+const hargaPemeriksaan = document.getElementById('checkupPrice');
+selectPeriksa.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const harga = selectedOption.getAttribute('data-harga');
+    if (harga) {
+        hargaPemeriksaan.textContent = harga;
+    } else {
+        hargaPemeriksaan.textContent = '0';
+    }
+    updateHargaTotal();
+});
 
-    for (let i = 0; i < rows.length; i++) {
-        let row = rows[i];
-        let priceString = row.getElementsByTagName('td')[4].textContent;
-        let price = parseFloat(priceString.replace('Rp', '').replace(',', ''));
-        let jumlah = parseInt(row.getElementsByTagName('td')[3].getElementsByTagName('input')[0].value);
-        totalPrice += price * jumlah;
+    function updateHargaTotal() {
+        let totalPrice = 0;
+        let checkupPrice = parseFloat(document.getElementById('checkupPrice').textContent);
+        let rows = tableDatatrans.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            let row = rows[i];
+            let priceString = row.getElementsByTagName('td')[4].textContent;
+            let price = parseFloat(priceString.replace('Rp', '').replace(',', ''));
+            let jumlah = parseInt(row.getElementsByTagName('td')[3].getElementsByTagName('input')[0].value);
+            totalPrice += price * jumlah;
+        }
+
+        let totalPriceRp = totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+        document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
+        document.getElementById('totalPrice').textContent = totalPriceRp;
+        let allPrice = checkupPrice + totalPrice;
+
+        //isi nputan hidden
+const hargaKeseluruhanInput = document.getElementById('hargaKeseluruhanInput');
+hargaKeseluruhanInput.value = allPrice.toFixed(2);
+const hpInput = document.getElementById('checkupPriceInput');
+hpInput.value = checkupPrice.toFixed(2);
+        document.getElementById('allPrice').textContent = allPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+
+        calculateChange();
     }
 
-    let totalPriceRp = totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-    document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
-    document.getElementById('totalPrice').textContent = totalPriceRp;
-
-    calculateChange();
-}
 
 function calculateChange() {
     const uangBayarInput = document.getElementById('uangBayar');
     const uangBayar = parseFloat(uangBayarInput.value);
     const uangKembalianInput = document.getElementById('uangKembalian');
-    const totalPriceInput = document.getElementById('totalPriceInput');
+    const hargaKeseluruhanInput = document.getElementById('hargaKeseluruhanInput');
 
-    const totalPrice = parseFloat(totalPriceInput.value);
+    const totalPrice = parseFloat(hargaKeseluruhanInput.value);
 
     if (uangBayar < totalPrice) {
     uangKembalianInput.value = 'uang kurang !!';
@@ -269,7 +315,7 @@ function calculateChange() {
 
 }
 
-totalPriceInput.addEventListener('input', function() {
+hargaKeseluruhanInput.addEventListener('input', function() {
     updateHargaTotal();
 });
 uangBayar.addEventListener('input', function() {
@@ -281,9 +327,9 @@ uangBayar.addEventListener('input', function() {
 BayarTombol.addEventListener('click', function(event) {
     event.preventDefault();
 
-    let totalPriceInput = document.getElementById('totalPriceInput');
+    let hargaKeseluruhanInput = document.getElementById('hargaKeseluruhanInput');
     let a = document.getElementById('uangBayar');
-    let nilaib = parseFloat(totalPriceInput.value);
+    let nilaib = parseFloat(hargaKeseluruhanInput.value);
     let nilai = parseFloat(a.value);
 
     if (isNaN(nilai)) {
@@ -317,18 +363,17 @@ BayarTombol.addEventListener('click', function(event) {
                 title: 'Success',
                 text: 'Berhasil !!',
                 // showCancelButton: true,
-                // confirmButtonText: 'Yes',
+                confirmButtonText: 'Yes',
                 // cancelButtonText: 'No',
-                closeOnConfirm: true,
+                closeOnConfirm: false,
                 closeOnCancel: false
             })
-            // .then((result) => {
-            //     if (result.isConfirmed) {
-            //         console.log('behasil');
-            //     } else {
-            //         console.log('gagal');
-            //     }
-            // });
+            .then((result) => {
+                if (result.isConfirmed) {
+                    console.log('behasil');
+                    location.reaload()
+                }
+            });
         },
         error: function(xhr, status, error) {
                 console.error(xhr.responseText);
