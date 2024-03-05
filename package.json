@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "simple-notify": "^1.0.4"
+    "simple-notify": "^1.0.4",
+    "sweetalert2": "^11.10.5"
   }
 }

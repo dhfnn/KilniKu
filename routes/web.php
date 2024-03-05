@@ -63,7 +63,7 @@ Route::middleware(['auth'])->group(function(){
             // Route::get('/produk/{id}', 'update');
 
         });
-        Route::resource('/transaksi', transController::class);
+        Route::resource('admin/transaksi', transController::class);
         route::controller(produkController::class)->group(function(){
 
 
@@ -74,7 +74,10 @@ Route::middleware(['auth'])->group(function(){
     });
 
     Route::middleware(['roleAkses:petugas'])->group(function(){
-        Route::get('/petugas', [DashPage::class, 'petugas']);
+        Route::get('/petugas/produk', [produkController::class, 'produkPetugas']);
+        Route::get('/produk/{id}/edit', [produkController::class, 'edit']);
+        Route::get('/getDataProduk', [produkController::class, 'getData']);
+        Route::get('/getsupplier', [produkController::class, 'getsupplier']);
     });
 
 });

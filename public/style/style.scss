@@ -57,6 +57,26 @@ h6 {
     margin: 0;
     padding: 0;
 }
+.hapusDataObat{
+    border:none !important;
+    background-color:transparent;
+}
+.j-ta {
+    display: flex;
+    justify-content: space-between;
+    
+        i {
+            color: var(--color-blue);
+        }
+}
+    .text-td {
+        color: var(--color-blue);
+    }
+
+    span.t-jta {
+        font-size: var(--fs-st);
+        font-weight: bold;
+    }
 .btn-logout {
     border-radius: 5px;
     border: none;
@@ -272,6 +292,7 @@ a.paginate_button:hover {
     outline: none;
 }
 .table-standart {
+
     --bs-table-color: #67748e;
     --bs-table-bg: transparent;
     --bs-table-border-color: #efe9e9;
@@ -286,6 +307,7 @@ a.paginate_button:hover {
     margin-bottom: 1rem;
     color: var(--bs-table-color);
     vertical-align: top;
+
     border-color: var(--bs-table-border-color);
 }
 
@@ -304,9 +326,7 @@ a.paginate_button:hover {
     vertical-align: bottom;
 }
 
-.table-standart {
-    border-collapse: inherit;
-}
+
 
 .table-standart thead th {
     font-size: 12px;
@@ -966,22 +986,7 @@ section.container-main {
                         background-color: white;
                         border-radius: 10px;
 
-                        .j-ta {
-                            display: flex;
-                            justify-content: space-between;
-                            .text-td {
-                                color: var(--color-blue);
-                            }
 
-                            span.t-jta {
-                                font-size: var(--fs-st);
-                                font-weight: bold;
-                            }
-
-                            i {
-                                color: var(--color-blue);
-                            }
-                        }
 
                     }
 

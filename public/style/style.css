@@ -59,6 +59,28 @@ h6 {
   padding: 0;
 }
 
+.hapusDataObat {
+  border: none !important;
+  background-color: transparent;
+}
+
+.j-ta {
+  display: flex;
+  justify-content: space-between;
+}
+.j-ta i {
+  color: var(--color-blue);
+}
+
+.text-td {
+  color: var(--color-blue);
+}
+
+span.t-jta {
+  font-size: var(--fs-st);
+  font-weight: bold;
+}
+
 .btn-logout {
   border-radius: 5px;
   border: none;
@@ -314,10 +336,6 @@ a.paginate_button:hover {
 
 .table-standart > thead {
   vertical-align: bottom;
-}
-
-.table-standart {
-  border-collapse: inherit;
 }
 
 .table-standart thead th {
@@ -909,18 +927,4 @@ section.container-main section.main section.con-main div.main .main-ta .con-ta {
   width: 100%;
   background-color: white;
   border-radius: 10px;
-}
-section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta {
-  display: flex;
-  justify-content: space-between;
-}
-section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta .text-td {
-  color: var(--color-blue);
-}
-section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta span.t-jta {
-  font-size: var(--fs-st);
-  font-weight: bold;
-}
-section.container-main section.main section.con-main div.main .main-ta .con-ta .j-ta i {
-  color: var(--color-blue);
 }/*# sourceMappingURL=style.css.map */

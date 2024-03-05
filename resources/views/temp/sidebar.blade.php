@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="{{ asset('fontawesome-pro-6.5.1-web/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('simple-notify\dist\simple-notify.css') }}">
+    <link rel="stylesheet" href="{{ asset('sweetalert2/src/sweetalert2.scss') }}">
+    <script src="{{ asset('sweetalert2/dist/sweetalert2.js') }}"></script>
   <script src="{{ asset('DataTables/jQuery-3.7.0/jquery-3.7.0.js') }}"></script>
   <script src="{{ asset('DataTables/datatables.js') }}"></script>
   <link rel="stylesheet" href="{{ asset('select2/dist/css/select2.css') }}">
@@ -99,9 +101,9 @@
             </div>
 
             <div class="con-si">
-              <div onclick="toggleSubMenu('submenu3')" class="col side-item {{ Request::is('admin/penjualan') ? 'si-active' : '' }} d-flex justify-content-between">
+              <div onclick="toggleSubMenu('submenu3')" class="col side-item {{ Request::is('admin/transaksi') ? 'si-active' : '' }} d-flex justify-content-between">
                 <div class="d-flex align-items-center">
-                  <div class="logo-item {{ Request::is('penjualan*') ? 'li-active' : '' }}">
+                  <div class="logo-item {{ Request::is('transaksi*') ? 'li-active' : '' }}">
                     <i class="fa-duotone fa-chart-pie-simple-circle-dollar" ></i>
                   </div>
                   <span>Penjualan</span>
@@ -109,9 +111,10 @@
                 <i class="fa-solid fa-angle-right me-3 panah-si"></i>
               </div>
               <div class="submenu-side" id="submenu3">
-                <div class="submenu-item"></div>
-                <div class="submenu-item"></div>
-                <div class="submenu-item"></div>
+                <div class="submenu-item">
+                    <span class="{{ Request::is('/admin/transaksi') ? 'text-act' : '' }}"><a href="{{ Request::is('/admin/transaksi') ? '#' :  '/admin/transaksi'  }}">Transaksi</a></span>
+                </div>
+                <div class="submenu-item">Riwayat</div>
               </div>
             </div>
 

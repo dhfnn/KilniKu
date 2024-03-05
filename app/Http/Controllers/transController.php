@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Checkup;
 use App\Models\Pelanggan;
 use App\Models\Product;
+use App\Models\Subtransaction;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class transController extends Controller
 {
@@ -35,8 +38,33 @@ return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','chec
      */
     public function store(Request $request)
     {
-        //
-    }
+            $userId = auth()->user()->id;
+            $todayDate = now()->toDateString();
+            $data = [
+                'transactionDate' => $todayDate,
+                'customerID' => $request->customerID,
+                'userID' => $userId,
+                'totalPrice' => $request->totalPrice,
+                'checkupID' => $request->checkupID
+            ];
+            $trans = Transaction::create($data);
+            $transID= $trans->transactionID;
+            $quantity = $request->jumlah;
+            $productId = $request->productId;
+            for ($i = 0; $i < count($jumlah); $i++) {
+                $data2 = [
+                    'transID' => $transID,
+                    'jumlah' => $jumlah[$i],
+                    'userID' => $userId
+                ];
+                Subtransaction::create($data2);
+            }
+
+
+                return response()->json(['hasil' => $data, 'success'=>' Data Berhasil Ditambahkan', 'allData'=>$request->all(), 'id'=>$transID]);
+
+}
+
 
     /**
      * Display the specified resource.

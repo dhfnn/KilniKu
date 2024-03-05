@@ -21,7 +21,7 @@ class roleAkses
         }elseif(Auth::user()->role === 'admin') {
             return redirect('/admin/dashboard');
         } elseif (Auth::user()->role === 'petugas') {
-            return redirect('/petugas');
+            return redirect('/petugas/produk');
         }
 
     }

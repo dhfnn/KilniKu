@@ -75,7 +75,7 @@ if ($validate->fails()) {
 }else{
     $image = $request->file('image');
     $filename = date('Y-m-d').'_'.$image->getClientOriginalName(); // Menggunakan 'd' untuk tanggal, bukan 'D'
-    $path = 'image-products/'.$filename;    
+    $path = 'image-products/'.$filename;
     Storage::disk('public')->put($path, file_get_contents($image));
 
     $data = [
@@ -89,7 +89,7 @@ if ($validate->fails()) {
         'image' => $filename,
         'supplierID' => $request->supplierID,
     ];
-    
+
     Product::create($data);
     return response()->json(['hasil' => $data, 'success'=>' data berhasil di tambahkan']);
 }
@@ -118,7 +118,7 @@ if ($validate->fails()) {
      */
     public function update(Request $request, string $id)
     {
-   
+
                 $validate = Validator::make($request->all(), [
                     'name' => 'required|string',
                     'stock' => 'required|integer|min:0',
@@ -168,7 +168,7 @@ if ($validate->fails()) {
                         $filename = date('Y-m-d').'_'.$file->getClientOriginalName();
                         $path = 'image-products/'.$filename;
                         Storage::disk('public')->put($path, file_get_contents($file));
-            
+
                     }else{
 
                         $imgData = Product::where('productID', $id)->first();
@@ -185,7 +185,7 @@ if ($validate->fails()) {
                         'image' => $filename,
                         'supplierID' => $request->supplierID,
                     ];
-                    
+
                     Product::where('productID',$id )->update($data);
                     return response()->json(['hasil' => $data, 'success'=>' data berhasil di ubah']);
                 }
@@ -198,5 +198,9 @@ if ($validate->fails()) {
     {
         Product::destroy($id);
         return response()->json(['hasil' => $id]);
+    }
+
+    public function produkPetugas(){
+        return view('pages.petugas.produk');
     }
 }

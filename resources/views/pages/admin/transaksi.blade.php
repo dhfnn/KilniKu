@@ -1,237 +1,326 @@
-{{-- @extends('temp.sidebar')
+@extends('temp.sidebar')
+@section('con')
 
-@section('con') --}}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Halaman Login</title>
-    <link rel="stylesheet" href="{{ asset('style/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('DataTables/DataTables-1.13.10/css/dataTables.bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
-    <link rel="stylesheet" href="{{ asset('fontawesome-pro-6.5.1-web/css/all.css') }}">
-    <link rel="stylesheet" href="{{ asset('simple-notify\dist\simple-notify.css') }}">
-  <script src="{{ asset('DataTables/jQuery-3.7.0/jquery-3.7.0.js') }}"></script>
-  <script src="{{ asset('DataTables/datatables.js') }}"></script>
-  <link rel="stylesheet" href="{{ asset('select2/dist/css/select2.css') }}">
-  <script src="{{ asset('select2/dist/js/select2.js') }}"></script>
+<div class="container-fluid px-md-5">
+    <form id="TambahTrans" method="POST">
+        @csrf
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="bg-white p-1 mb-3 ">
+                    <div class="col">
+                        <div class="p-2 ">
+                            <div class="row g-3">
+                                <div class="col">
 
-  </head>
-  <style>
-    .select2-container{
-
-        z-index: 1000000;
-        width: 100% !important
-    }
-    .select2-dropdown{
-        z-index: 1000000;
-
-    }
-    #modaltdProduk{
-        z-index: 100000;
-
-    }
-  </style>
-  <body>
-
-
-
-    <section class="w-100 vh-100  d-flex ">
-      <section class="con-kasir overflow-hidden " id="main-pri">
-        <section class="overflow-y-auto w-100 h-100  " >
-          <section class="con-main  " id="con-main">
-            <div class="main w-100 px-3">
-                <main class="overflow-y-auto p-3" style="max-height: 80%; max-width:100%;">
-                    <form class="row mx-0 g-3 mt-2 px-0 d-flex justify-content-center" action="/transaksi" method="post">
-                        @csrf
-                          <div class="col-md-5 mb-3">
-                              <label for="pelanggan_id" class="form-label">Pelanggan</label>
-                              <select id="pelanggan_id" name="pelanggan_id" class="form-select shadow-sm rounded">
-                                @foreach ($pelanggan as $p)
-                                  <option value="{{ $p->customerID }}">{{ $p->customerName }}</option>
-                                @endforeach
-                              </select>
-                          </div>
-                          <div class="col-md-5">
-                            <label for="produk_id" class="form-label">Produk</label>
-                            <select id="produk_id" name="produk_id" class="form-select shadow-sm rounded">
-                              @foreach ($produk as $p)
-                                <option data-harga="{{ $p->sellingPrice }}" value="{{ $p->productID }}">{{ $p->name }} (@currency($p->harga))</option>
-                              @endforeach
-                            </select>
-                          </div>
-                          <div class="col-md-5">
-                            <label for="user_id" class="form-label">Kasir</label>
-                            <input type="text" class="form-control shadow-sm rounded" name="user_id" id="user_id" readonly value="{{ $user->name }}">
-                          </div>
-                          <div class="col-md-5">
-                            <label for="kuantitas" class="form-label">Kuantitas</label>
-                            <input type="number" class="form-control shadow-sm rounded" name="kuantitas" id="kuantitas" placeholder="">
-                          </div>
-                          <button type="button" class="col-md-9 btn btn-primary mt-4 mb-3 shadow-sm rounded" onclick="addProductToTable()">Buat Transaksi</button>
-
-                      <div class="card col-md-10 shadow-sm rounded" style="max-height: 200px; overflow-y: auto;">
-                        <div class="card-body">
-                          <div class="table-responsive p-3">
-                            <table class="table table-striped table-sm text-start">
-                              <thead class="table-primary">
-                                  <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Harga</th>
-                                    <th scope="col">Kuantitas</th>
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Aksi</th>
-                                  </tr>
-                                </thead>
-                                <tbody id="transactionTableBody">
-                                  </tbody>
-                                  <tfoot>
-                                    <div>
-                                      <tr>
-                                        <td class="align-center"><h5>Total Harga</h5></td>
-                                        <td id="total_harga" class="text-center"></td>
-                                      </tr>
+                                    <div class="col">
+                                        <label class="form-label">Pasien</label>
+                                        <div class="input-group">
+                                            <select id="dataSelectPasien" class="slt-data" name="customerID">
+                                                <option selected disabled>Pilih Pasien</option>
+                                                @foreach ($pelanggan as $item)
+                                                <option value="{{ $item->customerID }}">{{ $item->customerName }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                  </tfoot>
-                                </table>
-                              </div>
+                                    <div class="col mt-2">
+                                        <label class="form-label">Pemeriksaan</label>
+                                        <div class="input-group">
+                                            <select id="dataSelectPeriksa" class="slt-data" name="checkupID">
+                                                <option selected disabled>Pilih Pemeriksaan</option>
+                                                @foreach ($checkup as $item)
+                                                <option value="{{ $item->checkupID }}">{{ $item->checkupName }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label">Obat</label>
+                                    <div class="input-group">
+                                        <select id="dataSelectProduct" class="slt-data">
+                                            <option selected disabled>Pilih Obat</option>
+                                            @foreach ($produk as $item)
+                                            <option value="{{ $item->productID }}"  data-name="{{ $item->name }}" data-Harga="{{ $item->purchasePrice }}" data-productID="{{ $item->productID }}" data-stock="{{ $item->stock }}">
+                                            <span style="font-style: italic;">
+                                                {{ $item->name }} Rp. {{ $item->purchasePrice }}
+                                            </span>
+
+
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="col d-flex justify-content-end">
+                                        <button type="button" id="TambahObat" class="px-2 py-1 btn-add text-white fw-bold ">Tambahkan Obat</button>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                          <div class="row mx-0 g-3 mt-2 px-0 d-flex justify-content-center">
-                            <div class="col-md-3">
-                              <label for="pembayaran" class="form-label">Pembayaran</label>
-                              <input type="number" class="form-control shadow-sm rounded" name="pembayaran" id="pembayaran" oninput="calculateChange()">
-                            </div>
-                            <div class="col-md-3">
-                              <label for="kembalian" class="form-label">Kembalian</label>
-                              <input type="number" class="form-control shadow-sm rounded" name="kembalian" id="kembalian"  value="" readonly>
-                            </div>
-                            <button type="submit" class="btn btn-primary col-md-3 ms-2 shadow-sm rounded" style="height: 40px; margin-top: 47.5px;" onclick="appendAllArrayToInputs()">Transaksi</button>
-                            <div class="mb-5">
-                              <input type="hidden" id="produk_id_hidden" name="produk_id" value="">
-                              <input type="hidden" id="kuantitas_hidden" name="kuantitas" value="">
-                              <input type="hidden" name="total_harga" value="" id="input_total_harga">
-                            </div>
-                          </div>
-                        </form>
-                  </main>
+                        </div>
+                    </div>
                 </div>
             </div>
-          </section>
-        </section>
-      </section>
-    </section>
-    <script src="{{ asset('simple-notify\dist\simple-notify.min.js') }}"></script>
-    <script src="{{ asset('script/script.js') }}"></script>
-  <script src="{{ asset('bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
-  <script>
-let productIdArr = [];
-  let qtyArr = [];
 
-  function addProductToTable() {
-    let productSelect = document.getElementById('produk_id');
-    let productName = productSelect.options[productSelect.selectedIndex].text;
-    let productId = productSelect.value;
-    let productPrice = parseFloat(productSelect.options[productSelect.selectedIndex].getAttribute('data-harga'));
-    let qty = parseFloat(document.getElementById('kuantitas').value);
-    let deleteButton = document.createElement('button');
+            <div class="" >
+                <div class="">
+                    <span class="t-jta">Daftar Obat</span>
+                </div>
+                <div class="card-body bg-white " >
+                    <div class="table-responsive pb-2">
+                        <table id="example" class="table-standart" style="width:100%">
+                            <thead >
+                                <tr>
+                                    <th>No</th>
+                                    <th>Pasien</th>
+                                    <th>Obat</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="" style="background-color:#fdfdfd;" id="tableDatatrans">
+                            </tbody >
 
-    // Periksa apakah kuantitas tidak kosong
-    if (isNaN(qty) || qty <= 0) {
-        alert('Kuantitas harus diisi dengan angka yang valid dan lebih besar dari 0.');
+                        </table>
+                        <div class="col px-0 " style="border-top:1px #efe9e9 solid;">
+                            <div class="row px-0 mx-0 mt-2 d-flex">
+                                <div class="col">
+                                    <input type="hidden" name="totalPrice" id="totalPriceInput" value="0"><span class="totalHarga fw-bold">Total Harga : </span><span id="totalPrice">0</span>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="it-data w-100 px-2" name="uangBayar" id="uangBayar">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="it-data w-100 px-2" name="uangKembalian" id="uangKembalian" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col d-flex  justify-content-end mt-2 me-1">
+                    <button type="submit" id="BayarTombol" class="p-1 px-3 fw-bold text-white btn-add ">Bayar</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+const BayarTombol = document.getElementById('BayarTombol');
+const tambahObatBtn = document.getElementById('TambahObat');
+const stockInputs = document.querySelectorAll('.inputJumlah');
+const tableDatatrans = document.getElementById('tableDatatrans');
+
+BayarTombol.style.display = 'none';
+
+function hideBtnBayar() {
+    BayarTombol.style.display = tableDatatrans.getElementsByTagName('tr').length > 0 ? 'block' : 'none';
+
+}
+tambahObatBtn.addEventListener('click', tambahObat);
+
+function tambahObat() {
+    const pembeli = document.getElementById('dataSelectPasien');
+    const product = document.getElementById('dataSelectProduct');
+    const periksa = document.getElementById('dataSelectPeriksa');
+    const productId = product.value;
+    const stockProduct = parseInt(product.options[product.selectedIndex].getAttribute('data-stock'));
+
+    if (stockProduct <= 0) {
+        showError('Stok Habis !!');
         return;
     }
-    let tableBody = document.getElementById('transactionTableBody');
-    let newRow = tableBody.insertRow();
-    let cellIndex = newRow.insertCell(0);
-    let cellName = newRow.insertCell(1);
-    let cellPrice = newRow.insertCell(2);
-    let cellQty = newRow.insertCell(3);
-    let cellDate = newRow.insertCell(4);
-    let cellDelete = newRow.insertCell(5);
 
-    let totalForProduct = productPrice * qty;
-
-    cellIndex.innerHTML = tableBody.rows.length;
-    cellName.innerHTML = productName;
-    cellPrice.innerHTML = totalForProduct;
-    cellQty.innerHTML = qty;
-    cellDate.innerHTML = new Date().toISOString().split('T')[0];
-    deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-    deleteButton.classList.add('btn', 'btn-danger', 'delete-btn');
-    deleteButton.setAttribute('type', 'button');
-    deleteButton.setAttribute('onclick', 'deleteRow(this)');
-    cellDelete.appendChild(deleteButton);
-    productIdArr.push(productId);
-    qtyArr.push(qty);
-    document.getElementById('kuantitas').value = '';
-
-    calculateTotal(totalForProduct);
-  }
-
-function calculateTotal(newProductPrice) {
-
-        let tableBody = document.getElementById('transactionTableBody');
-        let totalPriceCell = document.getElementById('total_harga');
-        let total = 0;
-
-        for (let i = 0; i < tableBody.rows.length; i++) {
-            let row = tableBody.rows[i];
-            let price = parseFloat(row.cells[2].innerHTML);
-            total += price;
-        }
-
-
-    // Update total price cell
-    document.getElementById('total_harga').innerHTML = total;
-
-
-  }
-
-function appendAllArrayToInputs(){
-  let hiddenProductId = document.getElementById('produk_id_hidden');
-    let hiddenQuantity = document.getElementById('kuantitas_hidden');
-    let hidden_total_harga = document.getElementById('total_harga');
-    let total_harga = document.getElementById('input_total_harga');
-
-    hiddenProductId.value = JSON.stringify(productIdArr);
-    hiddenQuantity.value = JSON.stringify(qtyArr);
-    total_harga.value = hidden_total_harga.textContent;
-  }
-
-function calculateChange() {
-    let totalHarga = parseFloat(document.getElementById('total_harga').innerHTML);
-    let pembayaran = parseFloat(document.getElementById('pembayaran').value);
-
-
-    let kembalian = pembayaran - totalHarga;
-    document.getElementById('kembalian').value = kembalian;
-  }
-
-  function deleteRow(button) {
-    // Mendapatkan referensi baris yang akan dihapus
-    var row = button.closest('tr');
-
-    // Menghapus baris dari tabel
-    row.remove();
-
-    // Perbarui nomor urut pada kolom "No"
-    var tableBody = document.getElementById('transactionTableBody');
-    for (var i = 0; i < tableBody.rows.length; i++) {
-        tableBody.rows[i].cells[0].innerText = i + 1;
+    if (!cekInput(pembeli, product, periksa)) {
+        showError('isi semua data');
+        return;
     }
 
-    // Perbarui total harga
-    calculateTotal();
-  }
+    let row = caraProductId(productId);
+    if (row) {
+        let stockInput = row.querySelector('.inputJumlah');
+        let stockValue = parseInt(stockInput.value);
+        if (stockValue < stockProduct) {
+            stockInput.value = stockValue + 1;
+        } else {
+            showError('jumlah cannot exceed available stock (' + stockProduct + ').');
+        }
+    } else {
+        barisBaru(pembeli, product, productId, stockProduct);
+    }
 
-  </script>
-</body>
-</html>
+    updateHargaTotal();
+    hideBtnBayar();
+}
 
-{{--
-@endsection --}}
+stockInputs.forEach(function(input) {
+    input.addEventListener('input', function() {
+        let maxStock = parseInt(this.getAttribute('max'));
+        let currentStock = parseInt(this.value);
+        if (currentStock > maxStock) {
+            showError('Stock maksimal (' + maxStock + ').');
+            this.value = maxStock;
+        } else if (currentStock < 1) {
+            showError('Minimal 1 !');
+            this.value = 1;
+        }
+    });
+});
+
+function cekInput(pembeli, product, periksa) {
+    return pembeli.value && !pembeli.options[pembeli.selectedIndex].disabled &&
+           product.value && !product.options[product.selectedIndex].disabled &&
+           periksa.value && !periksa.options[periksa.selectedIndex].disabled
+}
+
+function showError(message) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message
+    });
+}
+
+function barisBaru(pembeli, product, productId, stockProduct) {
+    let barisBaru = tableDatatrans.insertRow();
+    barisBaru.innerHTML = `
+        <td>${tableDatatrans.getElementsByTagName('tr').length}</td>
+        <td>${pembeli.options[pembeli.selectedIndex].text}</td>
+        <td><input type="hidden" class="form-control productId" name="productId[]" value="${productId}">${product.options[product.selectedIndex].getAttribute('data-name')}</td>
+        <td><input type="number" name="jumlah[]" class="form-control inputJumlah" value="1" min="1" max="${stockProduct}" /></td>
+        <td>Rp${product.options[product.selectedIndex].getAttribute('data-Harga')}</td>
+        <td class="text-center"><button class="text-white hapusDataObat"> <i class="fa-regular fa-square-minus text-danger"></i> </button></td>
+    `;
+    barisBaru.setAttribute('data-productID', productId);
+    barisBaru.querySelector('.inputJumlah').addEventListener('input', updateHargaTotal);
+    barisBaru.querySelector('.hapusDataObat').addEventListener('click', function() {
+        tableDatatrans.removeChild(barisBaru);
+        updateHargaTotal();
+        hideBtnBayar();
+    });
+}
+
+function caraProductId(productId) {
+    let rows = tableDatatrans.getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+        let rowProductId = rows[i].getAttribute('data-productID');
+        if (rowProductId === productId) {
+            return rows[i];
+        }
+    }
+    return null;
+}
+
+function updateHargaTotal() {
+    let totalPrice = 0;
+    let rows = tableDatatrans.getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+        let row = rows[i];
+        let priceString = row.getElementsByTagName('td')[4].textContent;
+        let price = parseFloat(priceString.replace('Rp', '').replace(',', ''));
+        let jumlah = parseInt(row.getElementsByTagName('td')[3].getElementsByTagName('input')[0].value);
+        totalPrice += price * jumlah;
+    }
+
+    let totalPriceRp = totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+    document.getElementById('totalPriceInput').value = totalPrice.toFixed(2);
+    document.getElementById('totalPrice').textContent = totalPriceRp;
+
+    calculateChange();
+}
+
+function calculateChange() {
+    const uangBayarInput = document.getElementById('uangBayar');
+    const uangBayar = parseFloat(uangBayarInput.value);
+    const uangKembalianInput = document.getElementById('uangKembalian');
+    const totalPriceInput = document.getElementById('totalPriceInput');
+
+    const totalPrice = parseFloat(totalPriceInput.value);
+
+    if (uangBayar < totalPrice) {
+    uangKembalianInput.value = 'uang kurang !!';
+} else {
+    const uangKembalian = uangBayar - totalPrice;
+    uangKembalianInput.value = uangKembalian;
+
+}
+
+}
+
+totalPriceInput.addEventListener('input', function() {
+    updateHargaTotal();
+});
+uangBayar.addEventListener('input', function() {
+    updateHargaTotal();
+});
+
+
+
+BayarTombol.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    let totalPriceInput = document.getElementById('totalPriceInput');
+    let a = document.getElementById('uangBayar');
+    let nilaib = parseFloat(totalPriceInput.value);
+    let nilai = parseFloat(a.value);
+
+    if (isNaN(nilai)) {
+        console.log('uang bayar kosong')
+        console.log(nilai);
+        console.log(nilaib);
+    } else if (nilai < nilaib) {
+        console.log('kuranggg');
+    } else {
+        console.log('pass');
+    let form = document.getElementById('TambahTrans');
+    let formData = new FormData(form);
+    let url = '/admin/transaksi';
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response);
+            console.log(response.allData);
+            console.log(response.id);
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Berhasil !!',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log('behasil');
+                } else {
+                    console.log('gagal');
+                }
+            });
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            console.error('Error:', errorThrown);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Gagal'
+            });
+        }
+    });
+    }
+
+
+});
+
+
+
+</script>
+@endsection
