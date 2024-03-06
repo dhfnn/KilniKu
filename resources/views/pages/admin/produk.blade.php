@@ -2,26 +2,23 @@
 @section('con')
 <div class="main-ta">
     <div class="con-ta py-3">
-      <div class="j-ta w-100 px-3  ">
-          <span>Data Produk</span>
-          <button
+        <div class="j-ta w-100 px-3  ">
+            <span class="t-jta">Data Produk</span>
+          <div class="d-flex">
+            <input class="it-data px-2 me-2" type="text" id="searchInput" placeholder="Cari produk...">
+
+                <i class="fa-duotone fa-arrow-up-1-9 fs-5 cursor-pointer p-1" id="stockFilter" ></i>
+            <button
             type="button"
-            class="btn-blue"
+            class="btn-blue ms-2"
             data-bs-toggle="modal"
             id="mtp"
           >
           <i class="fa-regular fa-plus"></i>
           </button>
-          <input type="text" id="searchInput" placeholder="Cari produk...">
+          </div>
 
-          <button id="stockFilter">
-            tekan
-          </button>
-          <button id="stockFilterTen">
-            cari
-          </button>
-
-    </div>
+      </div>
 </div>
 <div class="row row-cols-4" id="con-row">
 
@@ -141,26 +138,26 @@ selectForm();
             type:'GET',
             success:function(response){
                 response.forEach(function(products) {
-                        $('#con-row').append(
-                            `<div class="col  mt-2 con-card" data-toggle="tooltip"  data-toggle="modal" data-target="#productDetailModal" data-product-id="${products.productID}">
-        <div class="card-product bg-white" >
-            <div class="con-img">
-
-                <img src="{{asset('storage/image-products/${products.image}')}}" class="img-card" alt="">
-            </div>
-            <div class="col card-top px-2 mt-2">
-                    <span> ${products.name}</span>
-              </div>
-              <div class="col card-center px-2">
-                  <p>${products.description}</p>
-              </div>
-              <div class="col card-bottom text-end">
-                    <span class="px-2 py-1">Stok:${products.stock}</span>
-              </div>
-          </div>
-    </div>`
-                        );
-                    });
+            let bgColor = products.stock <= 10 ? '#d81f11' : '#11d81f';
+            $('#con-row').append(`
+                <div class="col mt-2 con-card" data-toggle="tooltip" data-toggle="modal" data-target="#productDetailModal" data-product-id="${products.productID}">
+                    <div class="card-product bg-white" >
+                        <div class="con-img">
+                            <img src="{{asset('storage/image-products/${products.image}')}}" class="img-card" alt="">
+                        </div>
+                        <div class="col card-top px-2 mt-2">
+                            <span>${products.name}</span>
+                        </div>
+                        <div class="col card-center px-2">
+                            <p>${products.description}</p>
+                        </div>
+                        <div class="col card-bottom text-end">
+                            <span class="px-2 py-1" style="background-color: ${bgColor};">Stok: ${products.stock}</span>
+                        </div>
+                    </div>
+                </div>
+            `);
+        });
             }
         })
     $(document).on('click', '.con-card', function(){

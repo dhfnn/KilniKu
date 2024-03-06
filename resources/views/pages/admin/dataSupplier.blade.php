@@ -33,6 +33,17 @@
                     lengthMenu : [['5','10'],['5','10']],
                     processing:true,
                     serverside:true,
+                    dom: '<"html5buttons">Bfrtip',
+        language: {
+            buttons: {
+                colvis : 'show / hide',
+                colvisRestore: "Reset Kolom"
+            }
+        },
+        buttons : [
+            {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
+            {extend:'print',title: 'Data Karyawan'},
+        ],
                     ajax: "{{ url('/getDatasupplier') }}",
                     columns: [{
                         data: 'DT_RowIndex',

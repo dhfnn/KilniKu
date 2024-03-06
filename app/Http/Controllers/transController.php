@@ -23,7 +23,8 @@ $pelanggan = Pelanggan::all();
 $produk = Product::all();
 $checkup = Checkup::all();
 $user = Auth()->user();
-return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','checkup'));
+$role = Auth()->user()->role;
+return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','checkup','role'));
     }
 
     /**
@@ -39,34 +40,41 @@ return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','chec
      */
     public function store(Request $request)
     {
-            $userId = auth()->user()->id;
-            $todayDate = now()->toDateString();
-            $data = [
-                'transactionDate' => $todayDate,
-                'customerID' => $request->customerID,
-                'userID' => $userId,
-                'totalPrice' => $request->hargaKeseluruhan,
-                'checkupID' => $request->checkupID
+        $userId = auth()->user()->id;
+        $todayDate = now()->toDateString();
+        $data = [
+            'transactionDate' => $todayDate,
+            'customerID' => $request->customerID,
+            'userID' => $userId,
+            'totalPrice' => $request->hargaKeseluruhan,
+            'checkupID' => $request->checkupID
+        ];
+        $trans = Transaction::create($data);
+        $transID = $trans->transactionID;
+        $quantity = $request->jumlah;
+        $productId = $request->productId;
+
+        for ($i = 0; $i < count($quantity); $i++) {
+            $data2 = [
+                'transID' => $transID,
+                'productID' => $productId[$i],
+                'quantity' => $quantity[$i],
+                'subTotal' => $request->subTotal
             ];
-            $trans = Transaction::create($data);
-            $transID = $trans->transactionID;
-            $quantity = $request->jumlah;
-            $productId = $request->productId;
-            for ($i = 0; $i < count($quantity); $i++) {
-                $data2 = [
-                    'transID' => $transID,
-                    'productID' => $productId[$i],
-                    'quantity' => $quantity[$i],
-                    'subTotal' => $request->subTotal
-                ];
-                Subtransaction::create($data2);
-            }
+            Subtransaction::create($data2);
 
+            $product = Product::where('productID', $productId[$i])->first();
+            $currentStock = $product->stock;
+            $quantityBought = $quantity[$i];
+            $remainingStock = $currentStock - $quantityBought;
 
+            $product->stock = $remainingStock;
+            $product->save();
+        }
 
-                return response()->json(['hasil' => $data, 'success'=>' Data Berhasil Ditambahkan', 'allData'=>$request->all(), 'id'=>$transID, 'dataA'=>$data2]);
+        return response()->json(['hasil' => $data, 'success'=>' Data Berhasil Ditambahkan', 'allData'=>$request->all(), 'id'=>$transID, 'dataA'=>$data2]);
+    }
 
-}
 
     public function getDataRiwayat(){
         $data = Transaction::with('user.employee', 'checkup', 'subtransactions','customer')->get();
@@ -77,6 +85,7 @@ return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','chec
         })
         ->make(true);
     }
+
 
     public function riwayat(){
         return view('pages.admin.riwayat');
@@ -91,11 +100,12 @@ return view('pages.admin.transaksi', compact('pelanggan', 'user', 'produk','chec
      */
     public function edit(string $id)
     {
-        //
+       $hasil = Subtransaction::where('transID', $id)->with('product', 'transaction','transaction.checkup','transaction.customer')->get();
+       return response()->json(['hasil'=>$hasil]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the  resource in storage.
      */
     public function update(Request $request, string $id)
     {

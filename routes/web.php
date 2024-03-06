@@ -9,6 +9,7 @@ use App\Http\Controllers\pelangganController;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\transController;
+use App\Http\Controllers\transPetugas;
 use App\Http\Middleware\roleAkses;
 
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,9 @@ Route::get('/home', function(){
 Route::middleware(['auth'])->group(function(){
     Route::middleware(['roleAkses:admin'])->group(function(){
         Route::get('/admin/dashboard', [DashPage::class, 'admin']);
+        Route::get('/getDataDash', [DashPage::class, 'getDataDash']);
+        Route::get('/getDataTP', [DashPage::class, 'getDataTP']);
+        Route::get('/dataTransDash', [DashPage::class, 'dataTransDash']);
 
         Route::resource('data/dataAkun', akunController::class);
         Route::controller(akunController::class)->group(function (){
@@ -55,32 +59,38 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/getDatakaryawan', 'getData');
 
         });
+        Route::resource('/admin/transaksi', transController::class);
         Route::post('/update-produk/{id}', [produkController::class, 'update']);
         Route::resource('/produk', produkController::class);
         route::controller(produkController::class)->group(function(){
-            Route::get('/getDataProdukAdmin', 'getData');
+
             Route::get('/getsupplierAdmin', 'getsupplier');
 
         });
-        Route::resource('admin/transaksi', transController::class);
-        route::controller(transController::class)->group(function(){
-            Route::get('/admin/riwayat','riwayat');
-            Route::get('/getDataRiwayat','getDataRiwayat');
 
-
-        });
 
 
 
     });
+    Route::get('/getDataProdukAdmin', [produkController::class, 'getData']);
 
+    Route::get('/produk2/{id}/edit', [produkController::class, 'edit2']);
+    Route::get('/admin/riwayat', [transController::class, 'riwayat']);
+    route::controller(transController::class)->group(function(){
+        Route::get('/getDataRiwayat','getDataRiwayat');
+    });
     Route::middleware(['roleAkses:petugas'])->group(function(){
+        route::resource('/petugas/transaksi', transPetugas::class);
+        route::get('/petugas/riwayat',[ transPetugas::class, 'riwayat']);
         Route::get('/petugas/produk', [produkController::class, 'produkPetugas']);
-        Route::get('/produk/{id}/edit', [produkController::class, 'edit']);
         Route::get('/getDataProduk', [produkController::class, 'getData']);
         Route::get('/getsupplier', [produkController::class, 'getsupplier']);
+        Route::get('/getDataRiwayatP',[transPetugas::class, 'riwayat']);
+
     });
 
 });
 
+
+Route::POST('/update-stock/{id}', [produkController::class, 'updateStock']);
 Route::get('/logout', [Login::class, 'logout']);

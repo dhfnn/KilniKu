@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Subtransaction;
 use App\Models\Supplier;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +23,19 @@ class produkController extends Controller
     public function index()
     {
         return view('pages.admin.produk');
+    }
+    public function updateStock(Request $request, string $id){
+        // return response()->json('masukkkkkkks sksksk');
+        $data = Product::where('productID', $id)->first();
+        $stockTambah = $request->stock;
+        $lama = $data->stock;
+
+        $baru = $lama + $stockTambah;
+
+        $data->stock = $baru;
+        $data->save();
+
+        return response()->json(['success'=>'berhasil di ubah']);
     }
 
     /**
@@ -112,6 +127,11 @@ if ($validate->fails()) {
         $product = Product::with('supplier')->find($id);
         return response()->json(['hasil' => $product]);
     }
+    public function edit2(string $id)
+    {
+        $product = Product::with('supplier')->find($id);
+        return response()->json(['hasil' => $product]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -196,9 +216,18 @@ if ($validate->fails()) {
      */
     public function destroy(string $id)
     {
+        $sub = Subtransaction::where('productID', $id)->first();
+        if ($sub) {
+            $trans = $sub->transID;
+
+            $sub->delete();
+
+            Transaction::where('transactionID', $trans)->delete();
+        }
         Product::destroy($id);
         return response()->json(['hasil' => $id]);
     }
+    
 
     public function produkPetugas(){
         return view('pages.petugas.produk');

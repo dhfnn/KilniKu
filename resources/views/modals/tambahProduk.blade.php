@@ -25,7 +25,7 @@
                                     <span class="text-error" id="td-category-error"></span>
                                 </div>
                                 <select name="category" id="td-category" class="slt-data">
-                                    <option value="">Pilih Kategori</option>
+                                    <option value="" selected disabled>Pilih Kategori</option>
                                     <option value="Obat Bebas">Obat Bebas</option>
                                     <option value="Obat Bebas Terbatas">Obat Bebas Terbatas</option>
                                     <option value="Obat Keras">Obat Keras</option>
@@ -75,7 +75,7 @@
                             <span class="text-error" id="td-supplierID-error"></span>
                         </div>
                             <select name="supplierID" id="td-supplierID" class="w-100 slt-data" style="z-index: 1000000">
-                                <option value="">Pilih supplier</option>
+                                <option value="" selected disabled>Pilih supplier</option>
                             </select>
                     </div>
                     <div class="col ">

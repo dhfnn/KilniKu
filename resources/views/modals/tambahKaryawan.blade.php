@@ -90,7 +90,7 @@
                                     <span class="text-error" id="td-position-error"></span>
                                 </div>
                                 <select name="position" id="td-position" class="slt-data">
-                                    <option value="">Pilih Posisi</option>
+                                    <option value="" selected disabled>Pilih Posisi</option>
                                     <option value="Dokter">Dokter</option>
                                     <option value="Perawat">Perawat</option>
                                     <option value="Karyawan">Karyawan</option>

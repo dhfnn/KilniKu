@@ -55,10 +55,31 @@
           reader.readAsDataURL(input.files[0])
         }
       })
+  $('#image3').change(function() {
+        var input = this
+        if (input.files && input.files[0]) {
+          var reader = new FileReader()
+          reader.onload = function(e) {
+            $('#previewlihat').attr('src', e.target.result).show()
+          }
+          reader.readAsDataURL(input.files[0])
+        }
+      })
                     $('#tableDataKaryawan').DataTable({
                         lengthMenu: [ [5, 10, 20], [5, 10, 20] ],
                         processing: true,
                         serverSide: true,
+                        dom: '<"html5buttons">Bfrtip',
+        language: {
+            buttons: {
+                colvis : 'show / hide', // label button show / hide
+                colvisRestore: "Reset Kolom" // lael untuk reset kolom ke default
+            }
+        },
+        buttons : [
+            {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
+            {extend:'print',title: 'Data Karyawan'},
+        ],
                         ajax: "{{ url('/getDatakaryawan') }}",
 
                         columns: [
@@ -89,7 +110,8 @@
                             {
                                 data: 'ACTION',
                                 name: 'Aksi',
-                                className: 'text-center'
+                                className: 'text-center',
+
                             }
                         ]
                     })
@@ -97,10 +119,10 @@
                 $('#mtK').click(function(){
                     $('#modaltdKaryawan').modal('show')
                 })
-                $('body').on('click', '#btn-ld' ,function(e){
-                    $('#modalldKaryawan').modal('show')
+                // $('body').on('click', '#btn-ld' ,function(e){
+                //     $('#modalldKaryawan').modal('show')
 
-                })
+                // })
                 $('body').on('click', '#btn-ed' ,function(e){
                     var id = $(this).data('id')
                     console.log('lolo');
@@ -132,6 +154,38 @@
                     })
 
                 })
+                $('body').on('click', '#btn-ld' ,function(e){
+                    var id = $(this).data('id')
+                    console.log('lolo');
+                    var url = '/data/dataKaryawan/'+  id +'/edit'
+                    $.ajax({
+                        url:url,
+                        type:'GET',
+                        success: function(response) {
+                            console.log(response.data);
+                            const sanitizedFilename = encodeURIComponent('/'+response.data.image);
+                    const urlImg = `{{ asset('storage/image-products/') }}` + sanitizedFilename;
+                    $('#previewlihat').attr('src', urlImg);
+$('#ld-name').val(response.data.name).prop('readonly', true);
+$('#ld-phoneNumber').val(response.data.phoneNumber).prop('readonly', true);
+$('#ld-birthdate').val(response.data.birthdate).prop('readonly', true);
+$('input[name="gender"][value="' + response.data.gender + '"]').prop('checked', true).prop('disabled', true);
+$('#ld-address').val(response.data.address).prop('readonly', true);
+$('#ld-position').val(response.data.position).prop('disabled', true);
+$('#id-kar').attr('data-karyawan-id', response.data.employeeID);
+$('#ld-startWork').val(response.data.startWork).prop('readonly', true);
+
+$('#modalldKaryawan').modal('show');
+
+                        }
+                        ,
+                        error:function(xhr, status, error){
+                            console.log(xhr.responseText);
+                        }
+
+                    })
+
+                })
 
                 $('body').on('click', '#btn-hd', function(e){
                     var id =  $(this).data('id');
@@ -148,7 +202,10 @@
                         $('#tableDataKaryawan').DataTable().ajax.reload();
                         $('#MhapusData').modal('hide')
 
-                        }
+                        },
+                                error: function(xhr, status, error) {
+                                console.error(xhr.responseText);
+                                }
                     })
                 }
 

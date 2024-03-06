@@ -43,6 +43,12 @@ a {
   text-decoration: none !important;
 }
 
+span.t-jta {
+  font-size: var(--fs-st);
+  font-weight: bold;
+  color: var(--color-blue);
+}
+
 h1,
 h2,
 h3,
@@ -74,11 +80,6 @@ h6 {
 
 .text-td {
   color: var(--color-blue);
-}
-
-span.t-jta {
-  font-size: var(--fs-st);
-  font-weight: bold;
 }
 
 .btn-logout {
@@ -128,8 +129,19 @@ span.t-jta {
   font-weight: bold;
 }
 
+.or-text {
+  font-size: var(--fs-s);
+  color: var(--color-greyM);
+  font-weight: 500;
+}
+
 .ti-das {
   font-size: var(--fs-st);
+}
+
+.j-modal {
+  font-size: var(--fs-st);
+  color: var(--color-blue);
 }
 
 span.st-data {
@@ -432,7 +444,6 @@ button.btn-blue i {
 }
 .cont-preview .previewgambar {
   width: 100%;
-  height: 120px;
   display: block;
   background-image: cover;
 }
@@ -446,7 +457,7 @@ button.btn-blue i {
 }
 .cont-preview2 #preview2 {
   width: 100%;
-  height: 120px;
+  max-height: 120px;
   display: block;
   background-image: cover;
 }
@@ -869,39 +880,65 @@ section.container-main section.main section.con-main div.main .con-ad .main-ad .
 section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(3) {
   padding-right: 9px !important;
 }
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(1) div,
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(3) div {
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(1) div.opp,
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(3) div.opp {
   border-radius: 10px;
   height: 70px;
   box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
 }
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(1) div .kotak-b,
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(3) div .kotak-b {
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(1) div.opp .kotak-b,
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(3) div.opp .kotak-b {
   margin-left: 16px;
   width: 45px;
   height: 45px;
   background: var(--gradient-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--gradient-primary);
+  border-radius: 8px;
+}
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(1) div.opp .kotak-b i,
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(3) div.opp .kotak-b i {
+  font-size: 20px;
+  --fa-primary-color: #ffffff;
+  --fa-primary-opacity: 0.9;
+  --fa-secondary-color: #ffffff;
+  --fa-secondary-opacity: 0.7;
 }
 section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(2),
 section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(4) {
   padding-left: 9px !important;
 }
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(2) div,
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(4) div {
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(2) div.opp,
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(4) div.opp {
   border-radius: 10px;
   height: 70px;
   box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
 }
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(2) div .kotak-b,
-section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(4) div .kotak-b {
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(2) div.opp .kotak-b,
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(4) div.opp .kotak-b {
   margin-left: 16px;
   width: 45px;
   height: 45px;
   background: var(--gradient-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--gradient-primary);
+  border-radius: 8px;
+}
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(2) div.opp .kotak-b i,
+section.container-main section.main section.con-main div.main .con-ad .main-ad .main-left .ad-left .l-bottom .px-0:nth-child(4) div.opp .kotak-b i {
+  font-size: 20px;
+  --fa-primary-color: #ffffff;
+  --fa-primary-opacity: 0.9;
+  --fa-secondary-color: #ffffff;
+  --fa-secondary-opacity: 0.7;
 }
 section.container-main section.main section.con-main div.main .con-ad .main-ad .main-right {
   border-radius: 10px;
@@ -925,7 +962,7 @@ section.container-main section.main section.con-main .con-sp .main-sp .con-pko d
   text-align: center;
   border-radius: 5px;
 }
-section.container-main section.main section.con-main .con-sp .main-sp .con-pko div .main-pko .pko-atas span {
+section.container-main section.main section.con-main .con-sp .main-sp .con-pko div .main-pko .pko-atas span.pko {
   font-weight: bold;
   color: var(--color-blue);
 }

@@ -3,23 +3,15 @@
 <div class="main-ta">
     <div class="con-ta py-3">
       <div class="j-ta w-100 px-3  ">
-          <span>Data Produk</span>
-          <button
-            type="button"
-            class="btn-blue"
-            data-bs-toggle="modal"
-            id="mtp"
-          >
-          <i class="fa-regular fa-plus"></i>
-          </button>
-          <input type="text" id="searchInput" placeholder="Cari produk...">
+          <span class="t-jta">Data Produk</span>
 
-          <button id="stockFilter">
-            tekan
-          </button>
-          <button id="stockFilterTen">
-            cari
-          </button>
+          <input class="it-data px-2" type="text" id="searchInput" placeholder="Cari produk...">
+
+
+        <div class="">
+
+              <i class="fa-duotone fa-arrow-up-1-9 fs-5 cursor-pointer p-1" id="stockFilter" ></i>
+        </div>
 
     </div>
 </div>
@@ -28,11 +20,11 @@
 
 
 </div>
-@include('modals.tambahProduk')
 @include('modals.lihatProduk')
-@include('modals.hapusAkun')
+@include('modals.tstock')
 
 </div>
+
 <script>
 
     $(document).ready(function() {
@@ -77,11 +69,15 @@ $('#searchInput').on('input', function() {
         }
     });
 });
+
+
+
+
         $('[data-toggle="tooltip"]').tooltip();
 
     function selectForm() {
         $.ajax({
-            url:'/getsupplier',
+            url:'/getsupplierAdmin',
             type:'GET',
             dataType:'json',
             success: function(response){
@@ -123,42 +119,38 @@ selectForm();
           })
 
 
-        $('#mtp').click(function(){
-            $('#modaltdProduk').modal('show')
-
-        })
-
         $('#card-product').click(function(){
             console.log('hlaooooooooooooooooooooo');
         })
         // BAGIAN TAMPILKAN DATA
         $.ajax({
-            url:'/getDataProduk',
-            type:'GET',
-            success:function(response){
-                response.forEach(function(products) {
-                        $('#con-row').append(
-                            `<div class="col  mt-2 con-card" data-toggle="tooltip"  data-toggle="modal" data-target="#productDetailModal" data-product-id="${products.productID}">
-        <div class="card-product bg-white" >
-            <div class="con-img">
+    url: '/getDataProdukAdmin',
+    type: 'GET',
+    success: function(response) {
+        response.forEach(function(products) {
+            let bgColor = products.stock <= 10 ? '#d81f11' : '#11d81f';
+            $('#con-row').append(`
+                <div class="col mt-2 con-card" data-toggle="tooltip" data-toggle="modal" data-target="#productDetailModal" data-product-id="${products.productID}">
+                    <div class="card-product bg-white" >
+                        <div class="con-img">
+                            <img src="{{asset('storage/image-products/${products.image}')}}" class="img-card" alt="">
+                        </div>
+                        <div class="col card-top px-2 mt-2">
+                            <span>${products.name}</span>
+                        </div>
+                        <div class="col card-center px-2">
+                            <p>${products.description}</p>
+                        </div>
+                        <div class="col card-bottom text-end">
+                            <span class="px-2 py-1" style="background-color: ${bgColor};">Stok: ${products.stock}</span>
+                        </div>
+                    </div>
+                </div>
+            `);
+        });
+    }
+});
 
-                <img src="{{asset('storage/image-products/${products.image}')}}" class="img-card" alt="">
-            </div>
-            <div class="col card-top px-2 mt-2">
-                    <span> ${products.name}</span>
-              </div>
-              <div class="col card-center px-2">
-                  <p>${products.description}</p>
-              </div>
-              <div class="col card-bottom text-end">
-                    <span class="px-2 py-1">Stok:${products.stock}</span>
-              </div>
-          </div>
-    </div>`
-                        );
-                    });
-            }
-        })
     $(document).on('click', '.con-card', function(){
 
             $('.tdt-read').prop('readonly', true);
@@ -208,16 +200,16 @@ selectForm();
     })
             var id = $(this).data('product-id')
             $.ajax({
-                url:'/produk/'+id+'/edit',
+                url:'/produk2/'+id+'/edit',
                 type:'GET',
                 success:function(response){
-                    var img = response.hasil;
+                    var img = response.hasil.image;
                     console.log(response.hasil);
                     const sanitizedFilename = encodeURIComponent('/'+response.hasil.image);
                     const urlImg = `{{ asset('storage/image-products/') }}` + sanitizedFilename;
-                    $('.t-detailK').click(function(){
-                        showEdit()
-                    })
+    $('.t-detailK').click(function(){
+        showEdit()
+    })
                     showEdit()
                     function showEdit() {
                         $('#tdt-image').val('')
@@ -231,7 +223,7 @@ selectForm();
                         $('#tdt-purchasePrice').val(response.hasil.purchasePrice);
                         $('#tdt-sellingPrice').val(response.hasil.sellingPrice);
                         $('#lihatForm').attr('data-produk-id', response.hasil.productID)
-                        $('#btn-hdD').attr('data-produk-id', response.hasil.productID)
+                        $('#btn-ts').attr('data-produk-id', response.hasil.productID)
                         $('#tdt-category option[value="' + response.hasil.category + '"]').prop('selected', true);
                         $('#tdt-supplierID option[value="' + response.hasil.supplierName + '"]').prop('selected', true);
                     }
@@ -243,6 +235,42 @@ selectForm();
                 }
             })
         })
+
+        $('#btn-ts').click(function() {
+            let id = $(this).data('produk-id')
+            console.log(id);
+            $('#modaltdtProduk').modal('hide')
+            tambah(id)
+
+        })
+
+        function tambah(id) {
+            console.log('masuk modaltambahStok');
+            $('#modaltambahStok').modal('show');
+
+            $('#oio').click(function() {
+                $.ajax({
+                    url:'/update-stock/'+id,
+                    type:'POST',
+                    data:{
+                        stock:$('#td-stock').val()
+                    },
+                    success:function(res){
+                        console.log(res);
+                    },
+                          error:function(xhr, status, error){
+                          console.log(xhr.responseText);
+                      }
+                })
+            })
+        }
+
+
+
+
+
+
+
         })
 
 

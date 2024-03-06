@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class supplierController extends Controller
 {
@@ -113,7 +114,8 @@ class supplierController extends Controller
      */
     public function destroy(string $id)
     {
-        Supplier::destroy($id);
-        return response()->json(['success'=>'telah berhasil dihapus']);
+        $dataProduct = Product::where('supplierID', $id)->delete();
+Supplier::destroy($id);
+return response()->json(['success'=>'telah berhasil dihapus']);
     }
 }

@@ -22,7 +22,7 @@
                             <span class="text-error" id="td-role-error"></span>
                         </div>
                         <select name="role" id="td-role" class="slt-data">
-                            <option value="">Pilih Role</option>
+                            <option value="" selected disabled>Pilih Role</option>
                             <option value="admin">Admin</option>
                             <option value="petugas">Petugas</option>
                         </select>
@@ -35,7 +35,7 @@
                             <span class="text-error" id="td-employeeID-error"></span>
                         </div>
                         <select name="employeeID"  class="slt-data employeeID2" id="td-employeeID">
-
+                            <option value="" selected disabled>Pilih Karyawan</optiom>
                         </select>
                     </div>
                     <div class="col mt-2">

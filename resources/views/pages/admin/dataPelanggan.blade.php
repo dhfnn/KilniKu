@@ -35,7 +35,17 @@
                     new DataTable('#tableDataPelanggan', {
                     lengthMenu: [ [5, 10, 20], [5, 10, 20] ],
                       processing:true,
-                      serverside:true,
+                      serverside:true,dom: '<"html5buttons">Bfrtip',
+        language: {
+            buttons: {
+                colvis : 'show / hide', 
+                colvisRestore: "Reset Kolom" 
+            }
+        },
+        buttons : [
+            {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
+            {extend:'print',title: 'Data Karyawan'},
+        ],
                         ajax :"{{ url('/getDataPelanggan') }}",
                         columns:[
                             {
@@ -161,7 +171,10 @@
                             console.log(response.success);
                             $('#MhapusData').modal('hide')
                             $('#tableDataPelanggan').DataTable().ajax.reload();
-                        }
+                        },
+                        error:function(xhr, status, error){
+                          console.log(xhr.responseText);
+                      }
 
                     })
                 }

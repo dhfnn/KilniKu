@@ -22,7 +22,7 @@
                             <span class="text-error" ed-id="role-error"></span>
                         </div>
                         <select name="role" id="ed-role" class="slt-data">
-                            <option value="">Pilih Role</option>
+                            <option value="" selected disabled>Pilih Role</option>
                             <option value="admin">Admin</option>
                             <option value="petugas">Petugas</option>
                         </select>

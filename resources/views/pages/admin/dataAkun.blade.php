@@ -40,7 +40,17 @@
                       lengthMenu: [ [5, 10, 20], [5, 10, 20] ],
                       processing:true,
                       serverside:true,
-
+                      dom: '<"html5buttons">Bfrtip',
+        language: {
+            buttons: {
+                colvis : 'show / hide',
+                colvisRestore: "Reset Kolom"
+            }
+        },
+        buttons : [
+            {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
+            {extend:'print',title: 'Data Karyawan'},
+        ],
                       ajax:"{{ url('/getDataAkun') }}",
                       columns:[
                               {
@@ -68,7 +78,8 @@
                               name:'aksi',
                               className:'d-flex justify-content-center gap-2'
                               }
-                          ]
+                          ],
+
                   });
                   //global setup
 
@@ -76,7 +87,7 @@
                       $('#modalId').modal('show')
                       $.ajax({
                         url:'/getDataEm',
-                        type:'GET', 
+                        type:'GET',
                         success:function(response){
                             console.log(response.hasil);
                             var select = $('#td-employeeID')
@@ -96,7 +107,6 @@
                       save()
                   });
                   $('.it-data, .slt-data').on('input change', function() {
-                      console.log('teks di hapus')
                       var inputId = $(this).attr('id');
                       $('#' + inputId + '-error').text('');
                   });
@@ -127,6 +137,7 @@
 
                           $('.editdata').click(function(){
                                 save(id)
+                                
                           });
 
                         }
@@ -136,24 +147,65 @@
                     )
 
                   });
+                  var toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
+    function notifHapus(){
+
+        toastMixin.fire({
+          animation: true,
+          title: 'Berhasil dihapus'
+        });
+    }
+    function notifUbah(){
+
+        toastMixin.fire({
+          animation: true,
+          title: 'Berhasil diubah'
+        });
+    }
+    function notifTambah(){
+
+        toastMixin.fire({
+          animation: true,
+          title: 'Berhasil ditambahkan'
+        });
+    }
                   $('body').on('click', '.btn-tdh', function(e) {
                       $('#MhapusData').modal('show');
+                      var id = $(this).data('id')
+                      $.ajax(
+                          {
+                              url:'/data/dataAkun/'+ id +'/edit',
+                              type:'GET',
+                              success: function(response) {
+                                $('.hapusdataAkun').click(function() {
+                                    var id = $(this).data('id'); // Mendapatkan ID data yang akan dihapus
+                                    setTimeout(function() {
+                                        notifHapus();
+                                    }, 1000);
 
-                    var id = $(this).data('id')
-                    $.ajax(
-                      {
-                        url:'/data/dataAkun/'+ id +'/edit',
-                        type:'GET',
-                        success: function(response) {
-                          $('.hapusdataAkun').click(function() {
-                              hapus(response.hasil.id)
-                          })
+                                    hapus(response.hasil.id);
+                                });
 
                         }
                       }
                     )
 
                   });
+
                   function hapus(id) {
                       $.ajax({
                           url:'/data/dataAkun/'+ id,
@@ -165,10 +217,9 @@
                                   $('#tableDataAKun').DataTable().ajax.reload()
                                   $('#MhapusData').modal('hide')
                               }
-                              pushNotify('hapus');
-                          }
+                            }
                       })
-                  }
+                    }
 
                   $('.close-crud').click(function() {
                       $('.text-error').text('');
@@ -186,64 +237,44 @@
                           console.log('bagian edit');
                           var nameId = 'ed'
                       }
-
                       $.ajax({
-                          url: var_url,
-                          type:var_type,
-                          data:{
-                              employeeID : $(`#${nameId}-employeeID`).val(),
-                              username : $(`#${nameId}-username`).val(),
-                              password : $(`#${nameId}-password`).val(),
-                              role : $(`#${nameId}-role`).val()
-                          },
-                          success: function(response) {
-                              console.log(response.errors);
-                              $('.text-error').text('');
-                                  for (var key in response.errors) {
-                                      var errorMessage = response.errors[key][0];
-                                      $(`#${nameId}-${key}-error`).text(errorMessage);
-                                  }
-                                  if (response.success) {
-                                      console.log(`hasilnya : ${response.success}`)
-                                      $('.text-error').text('');
-                                      $('.it-data, .slt-data').val('')
-                                      $('#tableDataAKun').DataTable().ajax.reload();
-                                        if (var_type === 'POST') {
-                                            console.log(response.hasildata);
-                                            $('#modalId').modal('hide')
-                                            pushNotify('tambahkan')
-                                        } else {
-                                            $('#modalIdEdit').modal('hide')
-                                            pushNotify('ubah')
-                                        }
-                              }
+    url: var_url,
+    type: var_type,
+    data: {
+        employeeID: $(`#${nameId}-employeeID`).val(),
+        username: $(`#${nameId}-username`).val(),
+        password: $(`#${nameId}-password`).val(),
+        role: $(`#${nameId}-role`).val()
+    },
+    success: function(response) {
+        console.log(response.errors);
+        $('.text-error').text('');
+        for (var key in response.errors) {
+            var errorMessage = response.errors[key][0];
+            $(`#${nameId}-${key}-error`).text(errorMessage);
+        }
+        if (response.success) {
+            console.log(`hasilnya : ${response.success}`)
+            $('.text-error').text('');
+            $('.it-data, .slt-data').val('')
+            $('#tableDataAKun').DataTable().ajax.reload();
+            if (var_type === 'POST') {
+                console.log(response.hasildata);
+                $('#modalId').modal('hide');
 
-                          },
-                          error:function(xhr, status, error){
-                          console.log(xhr.responseText);
-                      }
-                  })
-                  }
+                notifTambah()
+            } else {
+                $('#modalIdEdit').modal('hide');
+                notifUbah()
+            }
+        }
+    },
+    error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+    }
+});
 
-                  async function pushNotify(type) {
-                    await
-                      new Notify({
-                      status: 'success',
-                      title: 'Berhasil',
-                      text: `Data telah berhasil di${type}`,
-                      effect: 'fade',
-                      speed: 300,
-                      customClass: null,
-                      customIcon: null,
-                      showIcon: true,
-                      showCloseButton: true,
-                      autoclose: true,
-                      autotimeout: 30000,
-                      gap: 200,
-                      distance: 20,
-                      type: 'outline',
-                      position: 'right top'
-                    })
+
                   }
                   </script>
 @endsection

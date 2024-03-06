@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg"  role="document">
         <div class="modal-content border-0 p-2 px-3" >
             <div class="d-flex justify-content-between border-bottom py-1">
-                <span class="text-td">Tambah Data</span>
+                <span class="text-td">Edit Data</span>
                 <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-blue close-crud">
                     <i class="fa-regular fa-xmark"></i>
                 </button>
@@ -90,7 +90,7 @@
                                 <span class="text-error" id="td-position-error"></span>
                             </div>
                             <select name="position" id="ed-position" class="slt-data">
-                                <option value="">Pilih Posisi</option>
+                                <option value="" selected disabled>Pilih Posisi</option>
                                 <option value="Dokter">Dokter</option>
                                 <option value="Perawat">Perawat</option>
                                 <option value="Karyawan">Karyawan</option>

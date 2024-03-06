@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
+use App\Models\subtransaction;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
@@ -124,8 +126,30 @@ class pelangganController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        Pelanggan::destroy($id);
-        return response()->json(['succses'=> 'berhasil dihapus']);
+{
+    // Cari transaksi yang terkait dengan pelanggan
+    $transactions = Transaction::where('customerID', $id)->get();
+
+    // Hapus semua transaksi yang terkait dengan pelanggan
+    foreach ($transactions as $transaction) {
+        // Hapus semua subtransaksi yang terkait dengan transaksi tersebut
+        Subtransaction::where('transID', $transaction->transactionID)->delete();
+        
+        // Hapus transaksi
+        $transaction->delete();
     }
+
+    // Hapus pelanggan berdasarkan ID
+    Pelanggan::destroy($id);
+
+    // Return response JSON
+    return response()->json(['hasil' => $id]);
+}
+
+    
+
+
+    
+    
+    
 }

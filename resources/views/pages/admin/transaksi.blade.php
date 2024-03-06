@@ -223,7 +223,10 @@ barisBaru.querySelector('.inputJumlah').addEventListener('input', function() {
     updateHargaTotal();
 });
 barisBaru.querySelector('.hapusDataObat').addEventListener('click', function() {
-    barisBaru.style.display = 'none';
+    // Ubah perilaku tombol "Kurang" di sini
+    // Anda dapat menambahkan kode untuk menghapus baris obat dari tabel di sini
+    // Misalnya:
+    barisBaru.remove();
     updateHargaTotal();
     hideBtnBayar();
 });
@@ -371,7 +374,7 @@ BayarTombol.addEventListener('click', function(event) {
             .then((result) => {
                 if (result.isConfirmed) {
                     console.log('behasil');
-                    location.reaload()
+                    location.reload()
                 }
             });
         },
