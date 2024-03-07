@@ -39,8 +39,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="col px-2 pb-2 d-flex justify-content-end ">
 
-                <button class="btn btn-primary" onclick="printModalContent()">Print</button>
+                    <button class="btn btn-primary mt-2 " onclick="printModalContent()">Print</button>
+                </div>
 
             </div>
         </div>

@@ -247,8 +247,8 @@ $.ajax({
         $.each(data, function(index, item) {
             let row = '<tr>' +
                 '<td class="text-start">' + (index + 1) + '</td>' +
-                '<td class="text-start">' + item.transactionDate+ '</td>' +
-                '<td class="text-start">' + 'Rp.'+ item.totalPrice + '</td>' +
+                '<td class="text-start ps-0">' + item.transactionDate+ '</td>' +
+                '<td class="text-start ps-0">' + 'Rp.'+ item.totalPrice + '</td>' +
                 '</tr>';
             tableBody.append(row);
         });

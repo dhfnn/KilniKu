@@ -257,6 +257,8 @@ selectForm();
                     },
                     success:function(res){
                         console.log(res);
+            location.reload()
+
                     },
                           error:function(xhr, status, error){
                           console.log(xhr.responseText);

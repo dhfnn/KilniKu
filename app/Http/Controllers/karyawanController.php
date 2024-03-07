@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-
+use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator ;
@@ -169,6 +169,7 @@ class karyawanController extends Controller
      */
     public function destroy(string $id)
     {
+        Users::where('employeeID', $id)->delete();
         Employee::destroy($id);
         return response()->json(['success'=>'berhasil dihapus']);
     }

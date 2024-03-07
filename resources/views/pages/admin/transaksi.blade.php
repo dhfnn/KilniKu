@@ -374,7 +374,7 @@ BayarTombol.addEventListener('click', function(event) {
             .then((result) => {
                 if (result.isConfirmed) {
                     console.log('behasil');
-                    location.reload()
+                    window.location.href = "/admin/riwayat";
                 }
             });
         },

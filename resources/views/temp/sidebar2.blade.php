@@ -72,32 +72,32 @@
             margin-top: 20px
         }
         #total-price{
-    
+
             font-size:16px;
             font-weight: 600;
         }
-    
+
     .fixed_header tbody{
       width: 100%;
       overflow: auto;
       height: 100px;
     }
-    
-    
+
+
         .select2-container{
-    
+
             z-index: 1000000;
             width: 100% !important
         }
         .select2-dropdown{
             z-index: 1000000;
-    
+
         }
         #modaltdProduk{
             z-index: 100000;
-    
+
         }
-    
+
         .dt-buttons{
             margin-left: 20px !important;
         }
@@ -130,9 +130,9 @@
                 </a>
             </div>
             <div class="con-si">
-                <a href="{{ Request::is('petugas/pelanggan*') ? '#' : '/petugas/pelanggan'  }}" class="l-dash" >
-                    <div  class="col side-item {{ Request::is('petugas/pelanggan*') ? 'si-active' : '' }}">
-                      <div class="logo-item {{ Request::is('petugas/pelanggan*') ? 'li-active' : '' }}">
+                <a href="{{ Request::is('pasien*') ? '#' : '/pasien'  }}" class="l-dash" >
+                    <div  class="col side-item {{ Request::is('pasien*') ? 'si-active' : '' }}">
+                      <div class="logo-item {{ Request::is('pasien*') ? 'li-active' : '' }}">
                         <i class="fa-duotone fa-users"></i>
                     </div>
                     <span>Data Pasien</span>
@@ -140,21 +140,19 @@
                 </a>
             </div>
             <div class="con-si">
-              <div onclick="toggleSubMenu('submenu3')" class="col side-item {{ Request::is('admin/penjualan') ? 'si-active' : '' }} d-flex justify-content-between">
-                <div class="d-flex align-items-center">
-                  <div class="logo-item {{ Request::is('penjualan*') ? 'li-active' : '' }}">
-                    <i class="fa-duotone fa-chart-pie-simple-circle-dollar" ></i>
+                <div onclick="toggleSubMenu('submenu3')" class="col side-item {{ Request::is('petugas/transaksi') || Request::is('petugas/riwayat') ? 'si-active' : '' }} d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                      <div class="logo-item {{ Request::is('petugas/transaksi*') || Request::is('petugas/riwayat') ? 'li-active' : '' }}">
+                        <i class="fa-duotone fa-chart-pie-simple-circle-dollar"></i>
+                      </div>
+                      <span>Penjualan</span>
+                    </div>
+                    <i class="fa-solid fa-angle-right me-3 panah-si"></i>
                   </div>
-                  <span>Penjualan</span>
-                </div>
-                <i class="fa-solid fa-angle-right me-3 panah-si"></i>
-              </div>
+
               <div class="submenu-side" id="submenu3">
                 <div class="submenu-item">
                     <span class="{{ Request::is('/petugas/transaksi') ? 'text-act' : '' }}"><a href="{{ Request::is('/petugas/transaksi') ? '#' :  '/petugas/transaksi'  }}">Transaksi</a></span>
-                </div>
-                <div class="submenu-item">
-                    <span class="{{ Request::is('/data/dataPelanggan') ? 'text-act' : '' }}"><a href="{{ Request::is('/data/dataPelanggan') ? '#' : '/data/dataPelanggan' }}">Data Pasien</a></span>
                 </div>
                 <div class="submenu-item">
                     <span class="{{ Request::is('/petugas/riwayat') ? 'text-act' : '' }}"><a href="{{ Request::is('/petugas/riwayat') ? '#' :  '/petugas/riwayat'  }}">Riwayat</a></span>

@@ -216,18 +216,19 @@ if ($validate->fails()) {
      */
     public function destroy(string $id)
     {
+        // Cari subtransaksi yang terkait dengan produk yang akan dihapus
         $sub = Subtransaction::where('productID', $id)->first();
         if ($sub) {
             $trans = $sub->transID;
-
             $sub->delete();
-
             Transaction::where('transactionID', $trans)->delete();
         }
+
         Product::destroy($id);
         return response()->json(['hasil' => $id]);
     }
-    
+
+
 
     public function produkPetugas(){
         return view('pages.petugas.produk');

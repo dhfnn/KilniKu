@@ -39,6 +39,7 @@
         buttons : [
             {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
             {extend:'print',title: 'Data Karyawan'},
+            {extend:'pdf',title: 'Data Karyawan'},
         ],
                         ajax :"{{ url('/getDataRiwayat') }}",
                         columns:[

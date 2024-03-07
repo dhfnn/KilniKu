@@ -79,6 +79,7 @@
         buttons : [
             {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
             {extend:'print',title: 'Data Karyawan'},
+            {extend:'pdf',title: 'Data Karyawan'},
         ],
                         ajax: "{{ url('/getDatakaryawan') }}",
 
@@ -201,6 +202,7 @@ $('#modalldKaryawan').modal('show');
                         success: function(response){
                         $('#tableDataKaryawan').DataTable().ajax.reload();
                         $('#MhapusData').modal('hide')
+
 
                         },
                                 error: function(xhr, status, error) {

@@ -50,6 +50,8 @@
         buttons : [
             {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
             {extend:'print',title: 'Data Karyawan'},
+            {extend:'pdf',title: 'Data Karyawan'},
+            
         ],
                       ajax:"{{ url('/getDataAkun') }}",
                       columns:[
@@ -137,7 +139,7 @@
 
                           $('.editdata').click(function(){
                                 save(id)
-                                
+
                           });
 
                         }
@@ -147,42 +149,7 @@
                     )
 
                   });
-                  var toastMixin = Swal.mixin({
-    toast: true,
-    icon: 'success',
-    title: 'General Title',
-    animation: false,
-    position: 'top-right',
-    showConfirmButton: false,
-    timer: 5000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  });
-
-    function notifHapus(){
-
-        toastMixin.fire({
-          animation: true,
-          title: 'Berhasil dihapus'
-        });
-    }
-    function notifUbah(){
-
-        toastMixin.fire({
-          animation: true,
-          title: 'Berhasil diubah'
-        });
-    }
-    function notifTambah(){
-
-        toastMixin.fire({
-          animation: true,
-          title: 'Berhasil ditambahkan'
-        });
-    }
+                  
                   $('body').on('click', '.btn-tdh', function(e) {
                       $('#MhapusData').modal('show');
                       var id = $(this).data('id')

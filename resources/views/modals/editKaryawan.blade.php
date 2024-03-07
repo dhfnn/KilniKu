@@ -41,7 +41,7 @@
                             </div>
                             <div class="col d-flex">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="Laki-laki" checked>
+                                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="Laki-laki">
                                     <label class="form-check-label" for="gender1">
                                     Laki-laki
                                     </label>

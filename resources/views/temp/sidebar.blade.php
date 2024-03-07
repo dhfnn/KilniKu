@@ -170,15 +170,16 @@
             </div>
 
             <div class="con-si">
-              <div onclick="toggleSubMenu('submenu3')" class="col side-item {{ Request::is('admin/transaksi') ? 'si-active' : '' }} d-flex justify-content-between">
-                <div class="d-flex align-items-center">
-                  <div class="logo-item {{ Request::is('admin/transaksi*') ? 'li-active' : '' }}">
-                    <i class="fa-duotone fa-chart-pie-simple-circle-dollar" ></i>
+                <div onclick="toggleSubMenu('submenu3')" class="col side-item {{ Request::is('admin/transaksi') || Request::is('admin/riwayat') ? 'si-active' : '' }} d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                      <div class="logo-item {{ Request::is('admin/transaksi*') || Request::is('admin/riwayat') ? 'li-active' : '' }}">
+                        <i class="fa-duotone fa-chart-pie-simple-circle-dollar"></i>
+                      </div>
+                      <span>Penjualan</span>
+                    </div>
+                    <i class="fa-solid fa-angle-right me-3 panah-si"></i>
                   </div>
-                  <span>Penjualan</span>
-                </div>
-                <i class="fa-solid fa-angle-right me-3 panah-si"></i>
-              </div>
+
               <div class="submenu-side" id="submenu3">
                 <div class="submenu-item">
                     <span class="{{ Request::is('/admin/transaksi') ? 'text-act' : '' }}"><a href="{{ Request::is('/admin/transaksi') ? '#' :  '/admin/transaksi'  }}">Transaksi</a></span>
@@ -249,6 +250,42 @@
                       $('.it-data, .slt-data, .tt-data').val('')
 
                   })
+                  var toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
+    function notifHapus(){
+
+        toastMixin.fire({
+          animation: true,
+          title: 'Berhasil dihapus'
+        });
+    }
+    function notifUbah(){
+
+        toastMixin.fire({
+          animation: true,
+          title: 'Berhasil diubah'
+        });
+    }
+    function notifTambah(){
+
+        toastMixin.fire({
+          animation: true,
+          title: 'Berhasil ditambahkan'
+        });
+    }
   </script>
 </body>
 </html>

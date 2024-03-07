@@ -1,4 +1,4 @@
-@extends('temp.sidebar')
+@extends('temp.sidebar2')
 
 @section('con')
 <div class="main-ta">
@@ -47,7 +47,7 @@
             {extend:'print',title: 'Data Karyawan'},
             {extend:'pdf',title: 'Data Karyawan'},
         ],
-                        ajax :"{{ url('/getDataPelanggan') }}",
+                        ajax :"{{ url('/getDataPelanggan2') }}",
                         columns:[
                             {
                                 data:'DT_RowIndex',
@@ -91,7 +91,7 @@
                 })
                 $('body').on('click', '.btn-eda' ,function(e){
                     var id = $(this).data('id')
-                    var url = '/data/dataPelanggan/'+ id +'/edit'
+                    var url = '/pasien/'+ id +'/edit'
                     $.ajax(
                       {
                         url:url,
@@ -113,12 +113,12 @@
                   });
                 function save(id = '') {
                     if (id == '') {
-                        var url = '/data/dataPelanggan'
+                        var url = '/pasien'
                         var type = 'POST'
                         console.log('bagian TAMBAHHH');
                         var nameId = 'td'
                     } else {
-                        var url = '/data/dataPelanggan/'+id
+                        var url = '/pasien/'+id
                         console.log('bagian edit');
                         var type = 'PUT'
                         var nameId = 'ed'
@@ -166,7 +166,7 @@
 
                 function hapus(id) {
                     $.ajax({
-                        url:'/data/dataPelanggan/'+ id,
+                        url:'/pasien/'+ id,
                         type:'DELETE',
                         success: function(response) {
                             console.log(response.success);

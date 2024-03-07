@@ -14,10 +14,10 @@ class Users extends Seeder
     public function run(): void
     {
         ModelsUsers::create([
-            'username' => 'petugas',
-            'employeeID' => '6',
+            'username' => 'admin',
+            'employeeID' => '8',
             'password' => bcrypt('12345678'),
-            'role' => 'petugas',
+            'role' => 'admin',
         ]);
     }
 }

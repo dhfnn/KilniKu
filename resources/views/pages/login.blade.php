@@ -44,7 +44,7 @@
                     </div>
                     <input type="password" name="password" placeholder="Masukan Password" class="px-3" value="{{ old('password') }}"/>
                     <div class="text-end d-flex ailgn-items-center justify-content-end mt-2">
-                      <span class="">lupa password ?</span> <i class="fa-solid fa-circle-info  mx-1"></i>
+                      {{-- <span class="">lupa password ?</span> <i class="fa-solid fa-circle-info  mx-1"></i> --}}
                     </div>
                   </div>
                 </div>

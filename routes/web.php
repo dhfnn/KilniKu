@@ -6,6 +6,7 @@ use App\Http\Controllers\DashPage;
 use App\Http\Controllers\employeeController;
 use App\Http\Controllers\karyawanController;
 use App\Http\Controllers\pelangganController;
+use App\Http\Controllers\pelangganPetugas;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\transController;
@@ -86,6 +87,16 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/getDataProduk', [produkController::class, 'getData']);
         Route::get('/getsupplier', [produkController::class, 'getsupplier']);
         Route::get('/getDataRiwayatP',[transPetugas::class, 'riwayat']);
+
+
+
+        Route::resource('/pasien' ,pelangganPetugas::class);
+        route::controller(pelangganPetugas::class)->group(function(){
+            Route::get('/getDataPelanggan2' ,'getData');
+            route::get('/pasien/{id}/edit', 'edit');
+            route::get('/pasien/{id}', 'update');
+            route::delete('/data/dataAkun/{id}', 'destroy');
+        });
 
     });
 
